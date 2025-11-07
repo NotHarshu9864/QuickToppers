@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Subjects • QuickToppers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              card: '#0b0b0f',
+              cardStroke: '#1b1b22',
+            },
+            boxShadow: {
+              glow: '0 0 20px rgba(139,92,246,0.4)',
+            },
+            animation: {
+              gradientMove: 'gradientMove 4s ease infinite',
+            },
+            keyframes: {
+              gradientMove: {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .animated-border {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .animated-border::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 2px;
+        border-radius: inherit;
+        background: linear-gradient(
+          90deg,
+          #8b5cf6,
+          #06b6d4,
+          #22c55e,
+          #f59e0b,
+          #ef4444,
+          #8b5cf6
+        );
+        background-size: 300% 300%;
+        animation: gradientMove 5s linear infinite;
+        -webkit-mask: linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        z-index: -1;
+      }
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="h-full bg-black text-white">
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-10 bg-black/80 backdrop-blur border-b border-cardStroke">
+      <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+        <a
+          href="index.html"
+          aria-label="Back"
+          class="p-2 rounded-lg border border-cardStroke hover:bg-white/5 transition">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7" />
+          </svg>
+        </a>
+        <div class="flex-1">
+          <p class="text-xs text-gray-400">AARAMBH 2.0 • 9th</p>
+          <h1 class="text-base font-semibold text-purple-400">QuickToppers</h1>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="max-w-3xl mx-auto px-4 pb-3">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search subjects..."
+          class="w-full bg-card border border-cardStroke rounded-lg px-4 py-2 text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:shadow-glow transition" />
+      </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="max-w-3xl mx-auto px-4 py-4 space-y-4" id="subjects"></main>
+
+    <!-- Template -->
+    <template id="subject-card">
+      <a
+        class="group animated-border relative block bg-card p-4 hover:shadow-glow transition-all duration-300">
+        <div class="pl-2">
+          <div class="flex items-center justify-between">
+            <h2 class="title text-lg font-semibold text-white">Subject</h2>
+            <span
+              class="inline-flex items-center gap-1 text-xs text-gray-300 px-2 py-1 rounded border border-cardStroke group-hover:border-purple-500 group-hover:text-purple-400 transition">
+              Open
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+          <div class="mt-3 flex flex-wrap items-center gap-3 text-xs text-gray-300">
+            <span
+              class="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-cardStroke">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <span class="font-medium videos">0</span> Videos
+            </span>
+            <span
+              class="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-cardStroke">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4" />
+              </svg>
+              <span class="font-medium notes">0</span> Notes
+            </span>
+            <span
+              class="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 border border-cardStroke">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2v-7H3v7a2 2 0 002 2z" />
+              </svg>
+              <span class="font-medium dpp">0</span> DPP
+            </span>
+          </div>
+        </div>
+      </a>
+    </template>
+
+    <script>
+      const data = [
+        { name: 'Physics', href: 'batch/aarambh9th/physics.html', videos: 67, notes: 71, dpp: 5 },
+        { name: 'Chemistry', href: 'batch/aarambh9th/chemistry.html', videos: 71, notes: 79, dpp: 2 },
+        { name: 'Maths', href: 'batch/aarambh9th/maths.html', videos: 69, notes: 52, dpp: 4 },
+        { name: 'Biology', href: 'batch/aarambh9th/biology.html', videos: 46, notes: 43, dpp: 0 },
+        { name: 'Social Science', href: 'batch/aarambh9th/social-science.html', videos: 85, notes: 50, dpp: 0 },
+        { name: 'English', href: 'batch/aarambh9th/english.html', videos: 20, notes: 35, dpp: 0 },
+        { name: 'Hindi', href: 'batch/aarambh9th/hindi.html', videos: 25, notes: 40, dpp: 0 },
+      ];
+
+      const mount = document.getElementById('subjects');
+      const tpl = document.getElementById('subject-card');
+
+      function renderSubjects(filter = '') {
+        mount.innerHTML = '';
+        const filtered = data.filter((s) =>
+          s.name.toLowerCase().includes(filter.toLowerCase())
+        );
+
+        filtered.forEach((s) => {
+          const node = tpl.content.cloneNode(true);
+          const link = node.querySelector('a');
+          link.href = s.href;
+          node.querySelector('.title').textContent = s.name;
+          node.querySelector('.videos').textContent = s.videos;
+          node.querySelector('.notes').textContent = s.notes;
+          node.querySelector('.dpp').textContent = s.dpp;
+          mount.appendChild(node);
+        });
+
+        if (filtered.length === 0) {
+          mount.innerHTML =
+            '<p class="text-center text-gray-500 py-10">No subjects found.</p>';
+        }
+      }
+
+      renderSubjects();
+
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        renderSubjects(e.target.value);
+      });
+    </script>
+  </body>
+</html>

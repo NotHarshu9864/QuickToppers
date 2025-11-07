@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickToppers - Streaming</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    /* Glowing border animation */
+    .glow-border {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #6b21a8, #9333ea, #c026d3, #6b21a8);
+      background-size: 400%;
+      z-index: 0;
+      filter: blur(10px);
+      animation: glowMove 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes glowMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    button, input {
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      transition: transform 0.4s ease;
+    }
+
+    .glow-border:hover img {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white font-sans overflow-x-hidden">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between px-4 py-3 bg-gray-950 border-b border-purple-700/40 shadow-lg">
+    <div id="menuBtn" class="text-2xl cursor-pointer" data-feather="menu"></div>
+    <h1 class="text-xl font-bold tracking-wide text-purple-400">QuickToppers</h1>
+    <a href="https://www.youtube.com/@Quicktoppersofficial" target="_blank" class="text-2xl text-red-500 cursor-pointer hover:scale-110 transition-transform" data-feather="youtube"></a>
+  </header>
+
+  <!-- Search -->
+  <div class="flex items-center gap-3 px-4 py-4 sticky top-0 bg-black z-20 border-b border-gray-800">
+    <input id="searchInput" type="text" placeholder="Search batches..."
+      class="flex-1 px-4 py-2 rounded-lg bg-gray-900 text-gray-300 outline-none focus:ring-2 focus:ring-purple-500 transition-all" />
+  </div>
+
+  <!-- Content Cards -->
+  <section id="batchContainer" class="px-4 space-y-8 pb-24 mt-4">
+
+    <!-- Card 1 -->
+    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 9 class 9th batch 25-26">
+      <div class="card-content">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgiywPLAJdhchUFjnXBNMLSOrUh4bxAy3jx3fgU8SbN4E3Zprg-sbOd_E&s=10" alt="Batch 9" class="w-full h-48 object-cover rounded-t-xl" />
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-purple-400">AARAMBH 2.0 - Class 9th (Batch 25-26)</h3>
+          <p class="mt-1 text-gray-400"><del>₹3000</del> <span class="text-green-400 font-semibold">₹2500</span></p>
+          <button onclick="window.location.href='aarambh9th.html'"
+            class="mt-3 w-full py-2 bg-purple-700 hover:bg-purple-800 rounded-lg font-bold shadow-md shadow-purple-800/30">
+            Let's Study
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 9 class 9th batch 25-26">
+      <div class="card-content">
+        <img src="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/bundle_management/course/677190628611_Prarambh%20BATCh%20Commerce%2012.jpg" alt="Batch 12" class="w-full h-48 object-cover rounded-t-xl" />
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-purple-400">Commerce - Class 12th (Batch 25-26)</h3>
+          <p class="mt-1 text-gray-400"><del>₹3000</del> <span class="text-green-400 font-semibold">₹2500</span></p>
+          <button onclick="window.location.href='commerce12th.html'"
+            class="mt-3 w-full py-2 bg-purple-700 hover:bg-purple-800 rounded-lg font-bold shadow-md shadow-purple-800/30">
+            Let's Study
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Bottom Navigation -->
+  <nav class="fixed bottom-0 left-0 right-0 flex justify-around bg-gray-950 py-2 border-t border-gray-800 z-30 backdrop-blur-md">
+    <button class="flex flex-col items-center text-purple-400 hover:text-purple-300 transition-all">
+      <i data-feather="home"></i>
+      <span class="text-sm">My Batch</span>
+    </button>
+    <button id="aboutBtn" class="flex flex-col items-center text-gray-400 hover:text-purple-300 transition-all">
+      <i data-feather="info"></i>
+      <span class="text-sm">About</span>
+    </button>
+  </nav>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-950 border-r border-purple-700/40 shadow-lg transform -translate-x-full transition-transform duration-300 z-40">
+    <div class="flex justify-between items-center p-4 border-b border-gray-800">
+      <h2 class="text-lg font-semibold text-purple-400">Connect With Us</h2>
+      <button id="closeSidebar" class="text-gray-400" data-feather="x"></button>
+    </div>
+    <div class="p-4 space-y-4">
+      <a href="https://www.youtube.com/@Quicktoppersofficial" target="_blank" class="flex items-center gap-3 hover:text-red-500 transition-colors">
+        <i data-feather="youtube"></i> YouTube
+      </a>
+      <a href="https://www.instagram.com/error___user18" target="_blank" class="flex items-center gap-3 hover:text-pink-500 transition-colors">
+        <i data-feather="instagram"></i> Instagram
+      </a>
+      <a href="https://t.me/aarambh_class_9th_maths" target="_blank" class="flex items-center gap-3 hover:text-blue-400 transition-colors">
+        <i data-feather="send"></i> Telegram
+      </a>
+      <a href="https://x.com/ixharsh" target="_blank" class="flex items-center gap-3 hover:text-sky-400 transition-colors">
+        <i data-feather="twitter"></i> X (Twitter)
+      </a>
+    </div>
+    <div class="absolute bottom-0 w-full p-4 text-center border-t border-gray-800">
+      <p class="text-gray-400 text-sm">Developed By</p>
+      <p class="text-purple-500 font-semibold text-lg">H a r s h</p>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <div id="aboutSection" class="hidden fixed inset-0 bg-black bg-opacity-95 flex flex-col justify-center items-center text-center px-6 z-50">
+    <h2 class="text-2xl font-bold mb-4 text-purple-400">About QuickToppers</h2>
+    <p class="text-gray-300 max-w-md">
+      QuickToppers is a free educational streaming platform built for students.  
+      Watch high-quality lectures, explore batches, and learn anytime — anywhere.  
+      Designed and developed with ❤️ by <\> Harsh.
+    </p>
+    <button id="closeAbout" class="mt-6 bg-purple-700 hover:bg-purple-800 px-5 py-2 rounded-lg font-semibold transition-all">
+      Close
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    feather.replace();
+
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebar = document.getElementById("closeSidebar");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutSection = document.getElementById("aboutSection");
+    const closeAbout = document.getElementById("closeAbout");
+    const searchInput = document.getElementById("searchInput");
+
+    // Sidebar controls
+    menuBtn.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
+    closeSidebar.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
+
+    // About section toggle
+    aboutBtn.addEventListener("click", () => aboutSection.classList.remove("hidden"));
+    closeAbout.addEventListener("click", () => aboutSection.classList.add("hidden"));
+
+    // Live Search Functionality
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll(".batch-card").forEach(card => {
+        const name = card.getAttribute("data-name").toLowerCase();
+        card.style.display = name.includes(query) ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
