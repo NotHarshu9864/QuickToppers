@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biology: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="auth-check.js"></script> 
+ <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="https://nexttoppersharsh.netlify.app/aarambh9th" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Biology • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+  { "title": "Lecture 1: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4385663/174765778737748296383/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4388166/174784311082348296383/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4392729/174826422289318296383/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4393920/174834967737708296383/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4395109/174844706284808296383/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 6: The fundamental unit of life", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4404108/174931141517868296383/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4475881/175189250719138929414/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4476776/175197829846758929414/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4478171/175207564070148929414/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4481913/175249800035998929414/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4482890/175258462787808929414/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 6: Tissue", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4484120/175268040413938929414/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Improvement in food resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4544172/175733464850173740487/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Improvement in food resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4545144/175742140627453740487/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Improvement in food resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4546266/175751856760203740487/index_4.m3u8", "notes": "#" },
+  { "title": "Improvement in food resources L-4", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4549761/175794037859393740487/index_4.m3u8", "notes": "#" },
+  { "title": "Improvement in food resources L-5", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4550816/175802570740983740487/index_4.m3u8", "notes": "#" },
+  { "title": "Improvement in food resources L-6", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4552106/175812328870713740487/index_4.m3u8", "notes": "#" },
+  { "title": "Improvement in food resources L-7", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4555741/175854451315923740487/index_4.m3u8", "notes": "#" }
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+
+</body>
+</html>

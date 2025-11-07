@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Science: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="aarambh9th.html" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Social Science • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+  { "title": "Lecture 1: The French Revolution", "play": "https://www.youtube.com/live/EDMXz3jVgZA?si=BvCXav6zfaUMg1UT", "notes": "#" },
+  { "title": "Lecture 2: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4359911/174549813759727880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4364774/174594113722007880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4365809/174601655378227880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4366987/174610309713617880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 6: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4372289/174645974230447880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 7: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4373916/174654612513167880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 8: The French Revolution", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4374872/174662189759057880624/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: India size and location", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4379155/174706443135147880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: India size and location", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4385836/174766937560807880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: India size and location", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4387074/174775592115227880624/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: India size and location", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4388030/174783135735827880624/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: The Story of village Palampur", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4392899/174827541880218165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: The Story of village Palampur", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4394021/174836179392228165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: The Story of village Palampur", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4394988/174843781540668165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: The Story of village Palampur", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4398034/174878305850708165220/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: What is Democracy? Why Democracy", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4405294/174948480645778165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: What is Democracy? Why Democracy", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4406373/174957083156418165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: What is Democracy? Why Democracy", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4407312/174964547257888165220/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: What is Democracy? Why Democracy", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4411383/175008874685142809295/index_3.m3u8", "notes": "#" },
+  { "title": "Lecture 5: What is Democracy? Why Democracy", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4412652/175017742429362809295/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Physical Features of India", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4413709/175025027154897125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Physical Features of India", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4414844/175033680741617125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Physical Features of India", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4417723/175069298432877125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: Physical Features of India", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4418705/175077952347367125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: Physical Features of India", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4419626/175085488724317125088/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Drainage", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4460160/175129794037967125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Drainage", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4462028/175147111069297125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Drainage", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4464391/175154621428207125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: Drainage", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4464578/175155712912737125088/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4476028/175190236171387125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4476962/175198896239247125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4477955/175206460824077125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4479048/175215101442707125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4482039/175250749992707125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 6: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4483088/175259387081697125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 7: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4483914/175266969453997125088/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 8: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4492747/175336082171897125088/index_4.m3u8", "notes": "#" },
+  { "title": "Doubt Solving: Socialism in Europe and the Russian Evolution", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4492747/175336082171897125088/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: People as Resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4488129/175311348823522809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: People as Resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4489881/175319873399542809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: People as Resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4491437/175327451330052809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: People as Resources", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4495380/175361680479922809295/index_4.m3u8", "notes": "#" },
+
+  { "title": "Lecture 1: Constitutional Design", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4501800/175371807213212809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 2: Constitutional Design", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4503356/175380373418502809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 3: Constitutional Design", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4511447/175420779797982809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 4: Constitutional Design", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4512402/175432274418202809295/index_4.m3u8", "notes": "#" },
+  { "title": "Lecture 5: Constitutional Design", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4513389/175440968484682809295/index_4.m3u8", "notes": "#" },
+
+  { "title": "L-1: Climate", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4515238%2F175457041614647125088%2F175457041614647125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-2: Climate", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4517446%2F175492672018887125088%2F175492672018887125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-3: Climate", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4518756%2F175501338678617125088%2F175501338678617125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-4: Climate", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4519846%2F175508864041437125088%2F175508864041437125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-5: Climate", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4521063%2F175517498142767125088%2F175517498142767125088_7125088.m3u8", "notes": "#" },
+
+  { "title": "L-1: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4523376%2F175553184830187125088%2F175553184830187125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-2: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4524528%2F175561801873927125088%2F175561801873927125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-3: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4525528%2F175569342423787125088%2F175569342423787125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-4: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4526561%2F175577979445477125088%2F175577979445477125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-5: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4530124%2F175613669652237125088%2F175613669652237125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-6: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4531480%2F175622323852977125088%2F175622323852977125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-7: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4532486%2F175629841014367125088%2F175629841014367125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-8: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4533677%2F175638498367707125088%2F175638498367707125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-9: Nazism and the Rise of Hitler", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4536988%2F175674114988797125088%2F175674114988797125088_7125088.m3u8", "notes": "#" },
+
+  { "title": "L-1: Natural Vegetation and Wildlife", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4538252%2F175682766862287125088%2F175682766862287125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-2: Natural Vegetation and Wildlife", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4539304%2F175690268230677125088%2F175690268230677125088_7125088.m3u8", "notes": "#" },
+  { "title": "L-3: Natural Vegetation and Wildlife", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4541392%2F175698893420297125088%2F175698893420297125088_7125088.m3u8", "notes": "#" },
+
+  { "title": "L-1: Poverty as a Challenge", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4544338%2F175734624434162809295%2F175734624434162809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-2: Poverty as a Challenge", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4545308%2F175743223766332809295%2F175743223766332809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-3: Poverty as a Challenge", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4546104%2F175750875221212809295%2F175750875221212809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-4: Poverty as a Challenge", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4549053%2F175783738686032809295%2F175783738686032809295_2809295.m3u8", "notes": "#" },
+
+  { "title": "L-1: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4551055%2F175803733123502809295%2F175803733123502809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-2: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4551852%2F175811272070642809295%2F175811272070642809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-3: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4554974%2F175844000128622809295%2F175844000128622809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-4: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4555934%2F175855607968762809295%2F175855607968762809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-5: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4557098%2F175864173953962809295%2F175864173953962809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-6: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4558912%2F175878286340632809295%2F175878286340632809295_2809295.m3u8", "notes": "#" },
+  { "title": "Doubt Session: Electoral Politics", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4561768%2F175904529997572809295%2F175904529997572809295_2809295.m3u8", "notes": "#" },
+
+  { "title": "L-1: Food Security in India", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4562803%2F175916077340872809295%2F175916077340872809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-2: Food Security in India", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4563850%2F175924703321892809295%2F175924703321892809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-3: Food Security in India", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4564748%2F175932321581392809295%2F175932321581392809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-4: Food Security in India", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4567601%2F175964767383162809295%2F175964767383162809295_2809295.m3u8", "notes": "#" },
+  { "title": "L-5: Food Security in India", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4569604%2F175976689357272809295%2F175976689357272809295_2809295.m3u8", "notes": "#" }
+
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+ <script src="auth-check.js"></script>
+
+</body>
+</html>

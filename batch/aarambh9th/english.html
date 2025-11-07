@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>English: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="aarambh9th.html" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">English • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+
+// The Fun they had
+  { "title": "The Fun they had - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4362885/1745829485_2048536674804334/sunny/1745824193994_820484776522091000_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Fun they had - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4362888/1745829005_4828557523576252/sunny/1745825520195_860858436100445400_video_VOD.m3u8", "notes": "#" },
+  
+// Poetic Devices
+
+  { "title": "Poetic Devices - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4355434/1745094064_6558196120167470/sunny/1745074746600_243414202639413570_video_VOD.m3u8", "notes": "#" },
+  { "title": "Poetic Devices - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4355436/1745094844_9240190758365079/sunny/1745075412050_483337412598451650_video_VOD.m3u8", "notes": "#" },
+
+// The Lost Child
+
+  { "title": "The Lost Child - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376942/1746789365_8519999002932256/sunny/1746784978966_22068690813281_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Lost Child - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376943/1746789425_1181554534695089/sunny/1746785432591_190200542431737380_video_VOD.m3u8", "notes": "#" },
+
+// The Road not taken
+
+  { "title": "The Road not taken - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376945/1746790146_9952541808084121/sunny/1746785890101_885502576654220900_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Road not taken - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376944/1746789785_1046241985025655/sunny/1746785657092_863095031696032600_video_VOD.m3u8", "notes": "#" },
+
+// Tenses
+
+  { "title": "Tenses - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376992/1746790926_2620131171601548/sunny/1746785842321_68968204127858800_video_VOD.m3u8", "notes": "#" },
+  { "title": "Tenses - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376993/1746791165_4683530659641818/sunny/1746786281807_635426128592612900_video_VOD.m3u8", "notes": "#" },
+  { "title": "Tenses - 3", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376994/1746791225_3697514107018118/sunny/1746786504709_85453328252238460_video_VOD.m3u8", "notes": "#" },
+
+// Determiners
+  { "title": "Determiners - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4396723/1748599866_2612688982288432/sunny/1748596322264_841185111044298900_video_VOD.m3u8", "notes": "#" },
+  { "title": "Determiners - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4396724/1748599983_8916038134337860/sunny/1748596644025_182722180318143000_video_VOD.m3u8", "notes": "#" },
+
+// The Sound of music
+
+// Part-1
+  { "title": "The Sound of Music P1 - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4409060/1749824044_3361889869046858/sunny/1749811523668_756560226864072100_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Sound of Music P1 - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4409061/1749824105_2359363804227323/sunny/1749812109420_686057178732817300_video_VOD.m3u8", "notes": "#" },
+// Part-2
+  { "title": "The Sound of Music P2 - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4415974/1750449905_7686784792214587/sunny/1750424933955_84986932078565730_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Sound of Music P2 - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4415975/1750450385_4811330079792111/sunny/1750425472276_868704596787497100_video_VOD.m3u8", "notes": "#" },
+
+// Reading Comprehension 
+
+  { "title": "Reading Comprehension - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4422395/1751030767_5667117302715658/sunny/1751016683612_452635296169316540_video_VOD.m3u8", "notes": "#" },
+  { "title": "Reading Comprehension - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4422396/1751030887_1508153335809115/sunny/1751016758519_413690516822416200_video_VOD.m3u8", "notes": "#" },
+
+// The Adventures of Toto 
+
+  { "title": "The Adventures of Toto - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4465234/1751625546_7220802615425796/sunn/1751624104066_871573264351351600_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Adventures of Toto - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4465235/1751626146_3456923587276057/sunn/1751624234418_279428046048883550_video_VOD.m3u8", "notes": "#" },
+
+// Wind
+  { "title": "Wind - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4479540/1752223565_5601503020926684/sunny/1752215205565_474713474318265500_video_VOD.m3u8", "notes": "#" },
+  { "title": "Wind - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4479541/1752223926_4820612734718728/sunny/1752215288107_288965548979669200_video_VOD.m3u8", "notes": "#" },
+
+// English Doubt Class
+
+  { "title": "English Doubt Class", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4486089/175285280641378496551/175285280641378496551_8496551.m3u8", "notes": "#" },
+
+// Modals
+
+  { "title": "Modals - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4485490/1752820994_1193104855872784/sunny/1752820284080_852239388616624500_video_VOD.m3u8", "notes": "#" },
+  { "title": "Modals - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4485491/1752821107_7918278051377036/sunny/1752820612528_195711855498055070_video_VOD.m3u8", "notes": "#" },
+
+// The Little Girl
+
+  { "title": "The Little Girl - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494296/1753517940_3553413767092321/sunny/1753517576778_775885117098163100_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Little Girl - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494297/1753517941_8797618517784666/sunny/1753517858844_766427211206020900_video_VOD.m3u8", "notes": "#" },
+
+// Iswaran the storyteller
+
+  { "title": "Iswaran the storyteller - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4511032/1754123476_2521469716395640/sunny/1754122959553_821814239029115800_video_VOD.m3u8", "notes": "#" },
+  { "title": "Iswaran the storyteller - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4511033/1754123477_9189844334463754/sunny/1754123359269_9826002607641326_video_VOD.m3u8", "notes": "#" },
+
+// Rain on the roof
+
+  { "title": "Rain on the roof - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4515041/1754565480_9943913887441731/sunny/1754565342029_408076277674165760_video_VOD.m3u8", "notes": "#" },
+  { "title": "Rain on the roof - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4515042/1754565481_4172725388731479/sunny/1754565375544_133789633918165140_video_VOD.m3u8", "notes": "#" },
+
+// The Truly Beautiful Mind 
+
+  { "title": "The Truly Beautiful Mind - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522681/1755496570_6496189506993681/sunny/1755496409541_253288922254343780_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Truly Beautiful Mind - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522682/1755496571_6455481245008648/sunny/1755496436141_721523643834809100_video_VOD.m3u8", "notes": "#" },
+
+// Subject - Verb Concord 
+
+  { "title": "Subject-Verb Concord - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528207/1755928435_3037885403658558/sunny/1755928208685_471303649383808500_video_VOD.m3u8", "notes": "#" },
+  { "title": "Subject-Verb Concord - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4527545/1755861424_8111243298687100/sunny/1755860825102_680655720201447200_video_VOD.m3u8", "notes": "#" },
+
+// In the kingdom of fools
+
+  { "title": "In the kingdom of fools - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535168/1756534965_5083044258378906/sunny/1756534083755_783840468885194100_video_VOD.m3u8", "notes": "#" },
+  { "title": "In the kingdom of fools - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535169/1756534966_8599623800390375/sunny/1756534813550_112046478669970580_video_VOD.m3u8", "notes": "#" },
+
+// Reported Speech
+
+  { "title": "Reported Speech - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4543723/1757314728_6274534181212058/sunn/1757314660844_577614250884365400_video_VOD.m3u8", "notes": "#" },
+  { "title": "Reported Speech - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4543724/1757314728_7454064324225323/sunn/1757314708417_739788196465101600_video_VOD.m3u8", "notes": "#" },
+
+// The Lake Isle of Innisfree
+
+  { "title": "The Lake Isle of Innisfree - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544942/1757412659_9938196726612238/sunny/1757412204809_538072515468016640_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Lake Isle of Innisfree - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544943/1757412660_1389392038922941/sunny/1757412326055_168652871364367230_video_VOD.m3u8", "notes": "#" },
+
+// The Snake and the mirror
+
+  { "title": "The Snake and the mirror - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544946/1757412663_2605020588001541/sunny/1757412494180_827187169809155600_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Snake and the mirror - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544947/1757412664_9955013688501082/sunny/1757412600775_626070979411808800_video_VOD.m3u8", "notes": "#" },
+
+// The Happy Prince 
+
+  { "title": "The Happy Prince - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544940/1757412657_3204698732866396/sunny/1757411998269_711849792895175800_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Happy Prince - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544941/1757412658_5567903425857592/sunny/1757412161736_17493512769738862_video_VOD.m3u8", "notes": "#" },
+
+// My Childhood
+
+  { "title": "My Childhood - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544936/1757412653_8222265366960735/sunny/1757411739153_754074577620695000_video_VOD.m3u8", "notes": "#" },
+  { "title": "My Childhood - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544937/1757412654_7700537418472554/sunny/1757411890041_645174661624994200_video_VOD.m3u8", "notes": "#" },
+
+// No men are foreign
+
+  { "title": "No men are foreign - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544938/1757412655_2174343395585480/sunny/1757411910620_594535744940624000_video_VOD.m3u8", "notes": "#" },
+  { "title": "No men are foreign - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544939/1757412656_1347361961646549/sunny/1757411971840_526800178236773760_video_VOD.m3u8", "notes": "#" },
+
+// A House is not a Home
+
+  { "title": "A House is not a Home - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544932/1757412648_2425219093004471/sunny/1757411484370_120081646146351630_video_VOD.m3u8", "notes": "#" },
+  { "title": "A House is not a Home - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544933/1757412649_2371519663582202/sunny/1757411593762_65166396600433650_video_VOD.m3u8", "notes": "#" },
+
+// The Last Leaf
+
+  { "title": "The Last Leaf - 1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544944/1757412661_2787447710048407/sunny/1757412375403_845942896312652500_video_VOD.m3u8", "notes": "#" },
+  { "title": "The Last Leaf - 2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4544945/1757412662_2214574161850583/sunny/1757412475945_112739360106990000_video_VOD.m3u8", "notes": "#" }
+
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+ <script src="auth-check.js"></script>
+
+</body>
+</html>

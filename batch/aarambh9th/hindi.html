@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hindi: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="aarambh9th.html" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Hindi • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+
+// दो बैलों की कथा
+  { "title": "दो बैलों की कथा Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4367080/1746106806_8135080863582999/sunny/1746106442282_262131502527749950_video_VOD.m3u8", "notes": "#" },
+  { "title": "दो बैलों की कथा Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4366030/1746028385_5555840611917236/sunny/1746027030840_510190781786052400_video_VOD.m3u8", "notes": "#" },
+  { "title": "दो बैलों की कथा MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4366031/1746028505_8319272599648396/sunny/1746027182116_745126388311577200_video_VOD.m3u8", "notes": "#" },
+  { "title": "दो बैलों की कथा NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4366032/1746028926_4756110292278530/sunny/1746027291560_828715216555113600_video_VOD.m3u8", "notes": "#" },
+
+// ल्हासा की ओर
+
+  { "title": "ल्हासा की ओर Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376203/1746740285_7107764258422066/sunny/1746717777586_17737771606033458_video_VOD.m3u8", "notes": "#" },
+  { "title": "ल्हासा की ओर Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376200/1746739504_4859201909211251/sunny/1746716721540_653688282678292200_video_VOD.m3u8", "notes": "#" },
+  { "title": "ल्हासा की ओर MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376201/1746739924_4759946529826291/sunny/1746717110242_866673604247191900_video_VOD.m3u8", "notes": "#" },
+  { "title": "ल्हासा की ओर NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376202/1746739984_8260503277960936/sunny/1746717515479_844372138106719900_video_VOD.m3u8", "notes": "#" },
+
+// उपभोक्तावाद की संस्कृति
+
+  { "title": "उपभोक्तावाद की संस्कृति Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376213/1746743104_8351129771375001/sunny/1746718066694_127223678751488050_video_VOD.m3u8", "notes": "#" },
+  { "title": "उपभोक्तावाद की संस्कृति Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376210/1746742025_8611897352527872/sunny/1746716746643_661563793766941700_video_VOD.m3u8", "notes": "#" },
+  { "title": "उपभोक्तावाद की संस्कृति MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376211/1746742684_7364011012455828/sunny/1746717519871_770126071727227000_video_VOD.m3u8", "notes": "#" },
+  { "title": "उपभोक्तावाद की संस्कृति NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376212/1746742805_8696796241526701/sunny/1746717822889_333289814431731650_video_VOD.m3u8", "notes": "#" },
+
+// साँवले सपनों की याद
+
+  { "title": "साँवले सपनों की याद Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4376207/1746738545_4076596448388957/sunny/1746719415853_826829136546676000_video_VOD.m3u8", "notes": "#" },
+  { "title": "साँवले सपनों की याद Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4391505/1748103846_1872504026232330/sunny/1748092703606_806793085288063500_video_VOD.m3u8", "notes": "#" },
+  { "title": "साँवले सपनों की याद MCQs", "play": "#", "notes": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4391503/1748102945_9295347327198019/sunny/1748092390814_246902531730459780_video_VOD.m3u8" },
+  { "title": "साँवले सपनों की याद NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4391504/1748103304_2039914802212028/sunny/1748092512827_189480090668304200_video_VOD.m3u8", "notes": "#" },
+
+// प्रेमचंद के फटे जूत
+
+  { "title": "प्रेमचंद के फटे जूत Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4475600/1751881385_6432026688525524/sunny/1751880968284_161990567353541120_video_VOD.m3u8", "notes": "#" },
+  { "title": "प्रेमचंद के फटे जूत Rivision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4475606/1751882106_5941409968265029/sunny/1751881402501_842713970940805400_video_VOD.m3u8", "notes": "#" },
+  { "title": "प्रेमचंद के फटे जूत MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4475602/1751882045_5797818455917674/sunny/1751881090431_764885094765959200_video_VOD.m3u8", "notes": "#" },
+  { "title": "प्रेमचंद के फटे जूत NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4475601/1751881388_1740351658395741/sunny/1751881037711_202939645189069630_video_VOD.m3u8", "notes": "#" },
+
+// मेरे बचपन के दिन
+
+  { "title": "मेरे बचपन के दिन Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4486100/1752855608_4385949811459702/sunny/1752854711487_684192334315610400_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे बचपन के दिन Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4486097/1752854764_4383402526252166/sunny/1752854637447_731636058063308900_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे बचपन के दिन MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4486098/1752854771_5579099453402997/sunny/1752854678571_310788158645897600_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे बचपन के दिन NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4486099/1752854774_1348060113276552/sunny/1752854693999_333816880492124160_video_VOD.m3u8", "notes": "#" },
+
+// Hindi Doubt Class
+
+  { "title": "Doubt Class", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4486869/175293547796156123022/175293547796156123022_6123022.m3u8", "notes": "#" },
+
+// Hindi Course - B
+
+// साखियाँ सबद
+
+  { "title": "साखियाँ सबद Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4487625/1753087786_2845390317530189/sunny/1753087688469_166841989294466430_video_VOD.m3u8", "notes": "#" },
+  { "title": "साखियाँ सबद Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4487626/1753087787_8362361743869924/sunny/1753087712540_363313602937541060_video_VOD.m3u8", "notes": "#" },
+  { "title": "साखियाँ सबद MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4487624/1753087785_2968662963768766/sunny/1753087676131_449709046731812740_video_VOD.m3u8", "notes": "#" },
+  { "title": "साखियाँ सबद NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4487623/1753087784_3113219295543715/sunny/1753087646326_328722954942736300_video_VOD.m3u8", "notes": "#" },
+
+
+//  वाख ( ललद्यद)
+
+  { "title": "वाख ( ललद्यद) Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494356/1753522727_3266775380488209/sunny/1753522667111_838219547189590900_video_VOD.m3u8", "notes": "#" },
+  { "title": "वाख ( ललद्यद) Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494355/1753522726_9692055942517021/sunny/1753522581349_47163826159604950_video_VOD.m3u8", "notes": "#" },
+  { "title": "वाख ( ललद्यद) MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494353/1753522724_1367286281158548/sunny/1753522532901_138041930152664260_video_VOD.m3u8", "notes": "#" },
+  { "title": "वाख ( ललद्यद) NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4494354/1753522725_1694109772766220/sunny/1753522564139_515309121075321340_video_VOD.m3u8", "notes": "#" },
+
+
+//  पाठ 9 सवैय
+
+  { "title": "पाठ 9 सवैय Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528486/1755941854_2322121551334212/sunny/1755940953301_804026941832740100_video_VOD.m3u8", "notes": "#" },
+  { "title": "पाठ 9 सवैय Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528483/1755941851_6902827461625989/sunny/1755940615832_176784865637039520_video_VOD.m3u8", "notes": "#" },
+  { "title": "पाठ 9 सवैय MCQs", "play": "#", "notes": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528484/1755941852_1409010200027148/sunny/1755940788133_696167500357963400_video_VOD.m3u8" },
+  { "title": "पाठ 9 सवैय NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528485/1755941853_5011458409011503/sunny/1755940856113_344380465313382900_video_VOD.m3u8", "notes": "#" },
+
+
+//  कैदी और कोकिला
+
+  { "title": "कैदी और कोकिला Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528490/1755941858_8358097335280348/sunny/1755941532083_834241437715668000_video_VOD.m3u8", "notes": "#" },
+  { "title": "कैदी और कोकिला Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528487/1755941855_1697298047313707/sunny/1755941115548_416482788917483970_video_VOD.m3u8", "notes": "#" },
+  { "title": "कैदी और कोकिला MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528488/1755941856_2867652799830394/sunny/1755941314170_686798213357417700_video_VOD.m3u8", "notes": "#" },
+  { "title": "कैदी और कोकिला NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4528489/1755941857_9875873904871372/sunny/1755941390851_818098143224851600_video_VOD.m3u8", "notes": "#" },
+
+// 
+// Couse - A समास
+
+  { "title": "समास", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4538023/1756818876_5760317672899366/sunny/1756818837739_447439684747955460_video_VOD.m3u8", "notes": "#" },
+
+// Couse - A उपसर्ग,प्रत्यय
+
+  { "title": "उपसर्ग,प्रत्यय", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4538027/1756818917_3833409983949164/sunny/1756818843780_630042817100380300_video_VOD.m3u8", "notes": "#" },
+
+
+//  ग्राम श्री 
+
+  { "title": "ग्राम श्री Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535730/1756567660_1036823587474828/sunny/1756567170145_827565022584451700_video_VOD.m3u8", "notes": "#" },
+  { "title": "ग्राम श्री Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535727/1756567657_8853952228605915/sunny/1756567081820_685000774811814900_video_VOD.m3u8", "notes": "#" },
+  { "title": "ग्राम श्री MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535728/1756567658_6270867520307572/sunny/1756567092803_888748854785499800_video_VOD.m3u8", "notes": "#" },
+  { "title": "ग्राम श्री NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535729/1756567659_6119548004957472/sunny/1756567133954_14829636143586732_video_VOD.m3u8", "notes": "#" },
+
+
+//  मेघ आए
+
+  { "title": "मेघ आए Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535732/1756567662_9293248743371427/sunny/1756567307713_699507593745426600_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेघ आए Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535731/1756567661_8409343216440510/sunny/1756567256983_428606549487560260_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेघ आए MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535733/1756567663_8254623720539945/sunny/1756567361607_373010605452229700_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेघ आए NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4535734/1756567664_9602669649279650/sunny/1756567390301_376247811645022500_video_VOD.m3u8", "notes": "#" },
+
+// Couse - A अलंकार
+
+  { "title": "अलंकार", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4546245/1757516436_1589399502436292/sunny/1757516109163_600920435126110100_video_VOD.m3u8", "notes": "#" },
+
+// Couse - A अर्थ की दृष्टि से वाक्य भेद
+
+  { "title": "अर्थ की दृष्टि से वाक्य भेद", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4546246/1757516437_3843815841508684/sunny/1757516146180_410396015440946240_video_VOD.m3u8", "notes": "#" },
+
+// Course A- पत्र लेखन
+
+  { "title": "पत्र लेखन", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4576875/1760360137_5393202091093687/s/1760360128077_494141036985211100_video_VOD.m3u8", "notes": "#" },
+
+// Course A- सूचना लेखन
+
+  { "title": "सूचना लेखन", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4579071/1760531242_6896957131559423/sunny/1760531206971_99162182599293040_video_VOD.m3u8", "notes": "#" },
+
+// Course A- ई-मेल लेखन
+
+  { "title": "ई-मेल लेखन", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4579067/1760531238_5648874266174827/sunny/1760531057319_768028550010422900_video_VOD.m3u8", "notes": "#" },
+
+// Course A- लघु कथा लेखन
+
+  { "title": "लघु कथा लेखन", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4579068/1760531239_5280590877413309/sunny/1760531066314_83554434559289380_video_VOD.m3u8", "notes": "#" },
+
+// Course A- संवाद लेखन
+
+  { "title": "संवाद लेखन", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4579070/1760531241_4680141535699097/sunny/1760531201404_241751201626928400_video_VOD.m3u8", "notes": "#" },
+
+// KRITIKA 
+
+// इस जल प्रलय म
+
+  { "title": "इस जल प्रलय म Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4483875/1752672846_4552028801680913/sunny/1752668025641_702995260423636400_video_VOD.m3u8", "notes": "#" },
+  { "title": "इस जल प्रलय म Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4482636/1752575826_1220129822502829/sunny/1752573259028_714090343353667500_video_VOD.m3u8", "notes": "#" },
+  { "title": "इस जल प्रलय म MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4482637/1752576066_4895973779404768/sunny/1752573316829_245310935686288000_video_VOD.m3u8", "notes": "#" },
+  { "title": "इस जल प्रलय म NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4482635/1752575765_9564347718739844/sunny/1752573238537_149668693899733150_video_VOD.m3u8", "notes": "#" },
+
+// मेरे संग की औरतें [ मृदुला गर्ग ]
+
+  { "title": "मेरे संग की औरतें [ मृदुला गर्ग ] Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4516151/1754668235_4127875958596783/sunny/1754667362623_508815455814801200_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे संग की औरतें [ मृदुला गर्ग ] Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4516152/1754668235_9967478800737162/sunny/1754667466810_321162553808124400_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे संग की औरतें [ मृदुला गर्ग ] MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4516150/1754668234_4173838347352155/sunny/1754667338463_214705112745596350_video_VOD.m3u8", "notes": "#" },
+  { "title": "मेरे संग की औरतें [ मृदुला गर्ग ] NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4516153/1754668390_8374812798718055/sunny/1754668373624_397180675340234940_video_VOD.m3u8", "notes": "#" },
+
+// रीढ़ की हड्डी [ जगदीश चंद्र माथुर ]
+
+  { "title": "रीढ़ की हड्डी [ जगदीश चंद्र माथुर ] Vakhya", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522008/1755340018_9555368265704336/sunny/1755339892014_458702971757801800_video_VOD.m3u8", "notes": "#" },
+  { "title": "रीढ़ की हड्डी [ जगदीश चंद्र माथुर ] Revision", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522009/1755340019_4360939043723125/sunny/1755339934974_194681787725154430_video_VOD.m3u8", "notes": "#" },
+  { "title": "रीढ़ की हड्डी [ जगदीश चंद्र माथुर ] MCQs", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522010/1755340020_2673530132367083/sunny/1755339959680_580513186017586400_video_VOD.m3u8", "notes": "#" },
+  { "title": "रीढ़ की हड्डी [ जगदीश चंद्र माथुर ] NCERT SOLUTIONS", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4522007/1755340018_4019181555314299/sunny/1755339858039_403227054339440500_video_VOD.m3u8", "notes": "#" }
+
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+ <script src="auth-check.js"></script>
+
+</body>
+</html>

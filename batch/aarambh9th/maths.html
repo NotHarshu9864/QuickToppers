@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maths: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="aarambh9th.html" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Maths • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+// Number System 
+
+  { "title": "Number System Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://www.youtube.com/live/F6v_8tOEYrc?si=i3x0NAtBdsr_VyGB", "notes": "#" },
+  { "title": "Number System Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4360152/174550928629871097666/index_5.m3u8", "notes": "#" },
+  { "title": "Number System Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4361156/174558576440391097666/index_5.m3u8", "notes": "#" },
+  { "title": "Number System Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4362008/174567183539581097666/index_5.m3u8", "notes": "#" },
+  { "title": "Number System Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4367149/174611361544421097666/index_5.m3u8", "notes": "#" },
+  { "title": "Number System Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4368222/174619110643541097666/index_5.m3u8", "notes": "#" },
+  { "title": "Number System Lecture - 7", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4370049/174627933537761097666/index_5.m3u8", "notes": "#" },
+
+// Polynomials 
+
+  { "title": "Polynomials Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4376184/174671865862761097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4377207/174679563175571097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4377938/174688306660241097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4383998/174739970880251097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4384765/174748733028261097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4384986/174757357814051097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 7", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4389346/174793035190161097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 8", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4390842/174800460375161097666/index_5.m3u8", "notes": "#" },
+  { "title": "Polynomials Lecture - 9", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4391472/174809232290121097666/index_5.m3u8", "notes": "#" },
+
+// Coordinate Geometry 
+
+  { "title": "Coordinate Geometry Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4396260/174853287832481261798/index_4.m3u8", "notes": "#" },
+  { "title": "Coordinate Geometry Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4397075/174860816936171261798/index_4.m3u8", "notes": "#" },
+  { "title": "Coordinate Geometry Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4397715/174869387171741261798/index_4.m3u8", "notes": "#" },
+
+// Linear Equations in two Variables 
+
+  { "title": "Linear Equation Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4408426/174974223257041261798/index_4.m3u8", "notes": "#" },
+  { "title": "Linear Equation Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4409327/174981810598981261798/index_4.m3u8", "notes": "#" },
+  { "title": "Linear Equation Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4410122/174990428067631261798/index_4.m3u8", "notes": "#" },
+
+// Lines and Angles 
+
+  { "title": "Lines and Angles Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4414993/175034844671898752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4415948/175042402315178752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4416586/175051018944158752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4426270/175102838146088752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4427364/175111482017818752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4461096/175138425048988752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 7", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4479244/175216303598138752407/index_4.m3u8", "notes": "#" },
+  { "title": "Lines and Angles Lecture - 8", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4480065/175223691334828752407/index_4.m3u8", "notes": "#" },
+
+// Triangles 
+
+  { "title": "Triangles Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4480736/175232416413558752407/index_4.m3u8", "notes": "#" },
+  { "title": "Triangles Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4485929/175284331075788752407/index_4.m3u8", "notes": "#" },
+  { "title": "Triangles Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4486805/175292922251078752407/index_4.m3u8", "notes": "#" },
+  { "title": "Triangles Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4486980/175299159543288752407/index_4.m3u8", "notes": "#" },
+  { "title": "Triangles Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4492909/175337362774398752407/index_4.m3u8", "notes": "#" },
+  { "title": "Triangles Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4493830/175344775652878752407/index_4.m3u8", "notes": "#" },
+
+// Heron's Formula
+
+  { "title": "Herons Formula Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4510437/175405219348975373082/index_4.m3u8", "notes": "#" },
+  { "title": "Herons Formula Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4511223/175413794628705373082/index_4.m3u8", "notes": "#" },
+
+// Quadrilaterals 
+
+  { "title": "Quadrilaterals Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4515403%2F175458081494208752407%2Findex_4.m3u8", "notes": "#" },
+  { "title": "Quadrilaterals Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4516040%2F175465643215448752407%2Findex_4.m3u8", "notes": "#" },
+  { "title": "Quadrilaterals Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4516362%2F175483754793748752407%2Findex_4.m3u8", "notes": "#" },
+  { "title": "Quadrilaterals Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4521540%2F175526130326508752407%2Findex_4.m3u8", "notes": "#" },
+  { "title": "Quadrilaterals Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd3cx6qbbd4cbso.cloudfront.net%2Ffile_library%2Fvideos%2Fvod_non_drm_ios%2F4525206%2F1755685344_9634935742757644%2Fsunny%2F1755684816239_709717947228584700_video_VOD720p30.m3u8", "notes": "#" },
+  { "title": "Quadrilaterals Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https%3A%2F%2Fd274dp7v20n4nf.cloudfront.net%2Ffile_library%2Fvideos%2Fchannel_vod_non_drm_hls%2F4526799%2F175579048541278752407%2Findex_4.m3u8", "notes": "#" },
+
+// Circles 
+
+  { "title": "Circles Lecture - 1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4527717/175586607818868752407/index_4.m3u8", "notes": "#" },
+  { "title": "Circles Lecture - 2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4528708/175595299483148752407/index_4.m3u8", "notes": "#" },
+  { "title": "Circles Lecture - 3", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4533856/175639475922338752407/index_4.m3u8", "notes": "#" },
+  { "title": "Circles Lecture - 4", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4534732/175647106316348752407/index_4.m3u8", "notes": "#" },
+  { "title": "Circles Lecture - 5", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4542469/175707576270358752407/index_4.m3u8", "notes": "#" },
+  { "title": "Circles Lecture - 6", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4543087/175716112788748752407/index_4.m3u8", "notes": "#" },
+
+// Statistics 
+
+  { "title": "Statistics Lecture 1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4553010/175820981721675373082/index_4.m3u8", "notes": "#" },
+  { "title": "Statistics Lecture 2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4553758/175828528656765373082/index_4.m3u8", "notes": "#" },
+  { "title": "Statistics Lecture 3", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4554682/175837066490755373082/index_4.m3u8", "notes": "#" },
+ 
+// Surface Area and Volume 
+
+  { "title": "Surface Area and Volume L-1", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4559586/175881427324708752407/index_4.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-2", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4560475/175889017325548752407/index_4.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-3", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4561522/175897600915978752407/index_4.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-4", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4566376/175949466441518752407/index_4.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-5", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4567353/175958166722658752407/index_4.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-6", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4580287/176062855963788752407/index_1.m3u8", "notes": "#" },
+  { "title": "Surface Area and Volume L-7", "play": "https://player-harsh.netlify.app/player?link=https://d274dp7v20n4nf.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4581047/176070530138478752407/index_1.m3u8", "notes": "#" }
+  
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+ <script src="auth-check.js"></script>
+
+</body>
+</html>
