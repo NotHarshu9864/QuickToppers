@@ -8,13 +8,14 @@
   <meta name="description" content="QuickToppers — A free batch streaming website for students. Watch lectures, access notes, and learn smarter with QuickToppers.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://kit.fontawesome.com/a2d9a66d4e.js" crossorigin="anonymous"></script>
+
   <style>
     /* Glowing border animation */
     .glow-border {
       position: relative;
       overflow: hidden;
     }
-
     .glow-border::before {
       content: '';
       position: absolute;
@@ -29,36 +30,98 @@
       animation: glowMove 6s linear infinite;
       opacity: 0.6;
     }
-
     @keyframes glowMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    .card-content { position: relative; z-index: 1; }
+    html { scroll-behavior: smooth; }
+    button, input { transition: all 0.3s ease; }
+    button:hover { transform: scale(1.05); }
+    img { transition: transform 0.4s ease; }
+    .glow-border:hover img { transform: scale(1.08); }
 
-    .card-content {
-      position: relative;
-      z-index: 1;
+    /* Telegram Popup */
+    .telegram-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      animation: fadeIn 0.5s ease;
     }
-
-    html {
-      scroll-behavior: smooth;
+    .telegram-popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #1e2b38, #0d141c);
+      width: 90%;
+      max-width: 400px;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(26, 159, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      animation: popUp 0.5s ease;
     }
-
-    button, input {
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .close-btn:hover { color: white; background: rgba(255, 255, 255, 0.2); }
+    .popup-header { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+    .telegram-icon { font-size: 48px; color: #0088cc; margin-bottom: 15px; text-shadow: 0 0 15px rgba(0, 136, 204, 0.5); }
+    .popup-header h3 { color: white; font-size: 24px; font-weight: 600; margin: 0; }
+    .popup-body p { color: rgba(255, 255, 255, 0.8); font-size: 16px; margin-bottom: 25px; line-height: 1.5; }
+    .join-btn {
+      background: linear-gradient(135deg, #0088cc, #005f8f);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
     }
-
-    button:hover {
-      transform: scale(1.05);
+    .join-btn i { margin-right: 8px; font-size: 18px; }
+    .join-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(0, 136, 204, 0.5);
+      background: linear-gradient(135deg, #0095e0, #0077b3);
     }
-
-    img {
-      transition: transform 0.4s ease;
+    .join-btn:active { transform: translateY(1px); }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes popUp {
+      from { transform: translate(-50%, -60%); opacity: 0; }
+      to { transform: translate(-50%, -50%); opacity: 1; }
     }
-
-    .glow-border:hover img {
-      transform: scale(1.08);
+    @media (max-width: 480px) {
+      .telegram-popup-content { width: 85%; padding: 20px; }
+      .telegram-icon { font-size: 40px; }
+      .popup-header h3 { font-size: 20px; }
     }
   </style>
 </head>
@@ -80,11 +143,9 @@
 
   <!-- Content Cards -->
   <section id="batchContainer" class="px-4 space-y-8 pb-24 mt-4">
-
-    <!-- Card 1 -->
     <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 9 class 9th batch 25-26">
       <div class="card-content">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgiywPLAJdhchUFjnXBNMLSOrUh4bxAy3jx3fgU8SbN4E3Zprg-sbOd_E&s=10" alt="Batch 9" class="w-full h-48 object-cover rounded-t-xl" />
+        <img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgiywPLAJdhchUFjnXBNMLSOrUh4bxAy3jx3fgU8SbN4E3Zprg-sbOd_E&s=10" alt="Batch 9" class="w-full h-48 object-cover rounded-t-xl" />
         <div class="p-4">
           <h3 class="text-lg font-bold text-purple-400">AARAMBH 2.0 - Class 9th (Batch 25-26)</h3>
           <p class="mt-1 text-gray-400"><del>₹3000</del> <span class="text-green-400 font-semibold">₹2500</span></p>
@@ -96,10 +157,9 @@
       </div>
     </div>
 
-    <!-- Card 3 -->
-    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 9 class 9th batch 25-26">
+    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 10 class 10th batch 25-26">
       <div class="card-content">
-        <img src="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/bundle_management/course/285939929246_10th%20aarambh%202.0%20banner%20app.jpg" alt="Batch 9" class="w-full h-48 object-cover rounded-t-xl" />
+        <img loading="lazy" src="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/bundle_management/course/285939929246_10th%20aarambh%202.0%20banner%20app.jpg" alt="Batch 10" class="w-full h-48 object-cover rounded-t-xl" />
         <div class="p-4">
           <h3 class="text-lg font-bold text-purple-400">AARAMBH 2.0 - Class 10th (Batch 25-26)</h3>
           <p class="mt-1 text-gray-400"><del>₹3000</del> <span class="text-green-400 font-semibold">₹2500</span></p>
@@ -111,10 +171,9 @@
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="aarambh 9 class 9th batch 25-26">
+    <div class="glow-border rounded-xl shadow-lg bg-gray-950 hover:shadow-purple-600/40 transition-all duration-500 batch-card" data-name="commerce 12 class 12th batch 25-26">
       <div class="card-content">
-        <img src="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/bundle_management/course/677190628611_Prarambh%20BATCh%20Commerce%2012.jpg" alt="Batch 12" class="w-full h-48 object-cover rounded-t-xl" />
+        <img loading="lazy" src="https://dxixtlyravvxx.cloudfront.net/540/admin_v1/bundle_management/course/677190628611_Prarambh%20BATCh%20Commerce%2012.jpg" alt="Batch 12" class="w-full h-48 object-cover rounded-t-xl" />
         <div class="p-4">
           <h3 class="text-lg font-bold text-purple-400">Commerce - Class 12th (Batch 25-26)</h3>
           <p class="mt-1 text-gray-400"><del>₹3000</del> <span class="text-green-400 font-semibold">₹2500</span></p>
@@ -125,7 +184,6 @@
         </div>
       </div>
     </div>
-
   </section>
 
   <!-- Bottom Navigation -->
@@ -162,7 +220,7 @@
     </div>
     <div class="absolute bottom-0 w-full p-4 text-center border-t border-gray-800">
       <p class="text-gray-400 text-sm">Developed By</p>
-      <p class="text-purple-500 font-semibold text-lg">H a r s h</p>
+      <p class="text-purple-500 font-semibold text-lg">&lt;/&gt; Harsh</p>
     </div>
   </div>
 
@@ -170,13 +228,30 @@
   <div id="aboutSection" class="hidden fixed inset-0 bg-black bg-opacity-95 flex flex-col justify-center items-center text-center px-6 z-50">
     <h2 class="text-2xl font-bold mb-4 text-purple-400">About QuickToppers</h2>
     <p class="text-gray-300 max-w-md">
-      QuickToppers is a free educational streaming platform built for students.  
-      Watch high-quality lectures, explore batches, and learn anytime — anywhere.  
-      Designed and developed with ❤️ by <\> Harsh.
+      QuickToppers is a free educational streaming platform built for students.<br>
+      Watch high-quality lectures, explore batches, and learn anytime — anywhere.<br>
+      Designed and developed with ❤️ by &lt;/&gt; Harsh.
     </p>
     <button id="closeAbout" class="mt-6 bg-purple-700 hover:bg-purple-800 px-5 py-2 rounded-lg font-semibold transition-all">
       Close
     </button>
+  </div>
+
+  <!-- Telegram Join Popup -->
+  <div id="telegramPopup" class="telegram-popup">
+    <div class="telegram-popup-content">
+      <span class="close-btn">&times;</span>
+      <div class="popup-header">
+        <i class="fab fa-telegram telegram-icon"></i>
+        <h3>Join Our Community!</h3>
+      </div>
+      <div class="popup-body">
+        <p>Get free study materials, daily updates, and connect with other students!</p>
+        <button id="joinTelegramBtn" class="join-btn">
+          <i class="fab fa-telegram"></i> Join StudyStark
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
@@ -191,15 +266,11 @@
     const closeAbout = document.getElementById("closeAbout");
     const searchInput = document.getElementById("searchInput");
 
-    // Sidebar controls
     menuBtn.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
     closeSidebar.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
-
-    // About section toggle
     aboutBtn.addEventListener("click", () => aboutSection.classList.remove("hidden"));
     closeAbout.addEventListener("click", () => aboutSection.classList.add("hidden"));
 
-    // Live Search Functionality
     searchInput.addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase();
       document.querySelectorAll(".batch-card").forEach(card => {
@@ -207,6 +278,31 @@
         card.style.display = name.includes(query) ? "block" : "none";
       });
     });
+
+    // Telegram Popup Script
+    window.addEventListener('load', function() {
+      let refreshCount = parseInt(localStorage.getItem('telegramPopupRefreshCount')) || 0;
+      refreshCount++;
+      localStorage.setItem('telegramPopupRefreshCount', refreshCount);
+
+      if ((refreshCount - 1) % 3 === 0) {
+        setTimeout(() => {
+          document.getElementById('telegramPopup').style.display = 'block';
+        }, 2500);
+      }
+
+      document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('telegramPopup').style.display = 'none';
+      });
+
+      document.getElementById('joinTelegramBtn').addEventListener('click', function() {
+        window.open('https://telegram.me/studystark', '_blank');
+      });
+
+      document.getElementById('telegramPopup').addEventListener('click', function(e) {
+        if (e.target === this) this.style.display = 'none';
+      });
+    });
   </script>
 </body>
-  </html>
+        </html>
