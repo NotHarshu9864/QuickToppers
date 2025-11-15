@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beehive: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+ <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="https://nexttoppersharsh.netlify.app/abhay9th" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Beehive • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+
+  {
+    "title": "The Fun They Had",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267070/1735041304_5436707972368507/sunny/1735040470677_504591505159376830_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "A Truly Beautiful Mind",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267069/1735041065_9266661900181989/sunny/1735040354318_798564292286585700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Wind",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267195/1735049224_8936499996105559/sunny/1735047290435_600013460171078700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "The Little Girl",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267193/1735048744_4888571493569247/sunny/1735047279928_365620491761413200_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Rain on the Roof",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267191/1735048264_7614517694855991/sunny/1735047271575_34924683068813890_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "The Sound of Music",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267209/1735050364_7791930410310341/sunny/1735047953676_801906227628520300_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "The Happy Prince",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267210/1735050544_1750398649149806/sunny/1735048028557_671188835411245400_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "A Legend of the Northland",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267226/1735055104_4659957304991424/sunny/1735049122670_229461763292333980_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "The Snake and the Mirror",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267227/1735055404_3453240520177308/sunny/1735049164717_832010955470147200_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "The Lake Isle of Innisfree",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4267190/1735047965_2258284496329045/sunny/1735047265096_209336004735424540_video_VOD.m3u8a",
+    "notes": "#"
+  },
+  {
+    "title": "My Childhood",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277070/1736340605_2253413013878270/sunny/1736336080527_669027167596750700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "No Men Are Foreign",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277071/1736340069_2901392190751101/sunny/1736338016134_264438452020868100_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "On Killing a Tree",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277072/1736340066_3709613417800641/sunny/1736338838181_697618086065265700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Reach for the Top",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277069/1736341383_1508013500017267/sunny/1736335220760_417356050445596700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Kathmandu",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277064/1736341206_7163469089327126/sunny/1736333453489_482943509804249600_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "A Slumber Did My Spirit Seal",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277069/1736341383_1508013500017267/sunny/1736335220760_417356050445596700_video_VOD.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "If I Were You",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4277064/1736341206_7163469089327126/sunny/1736333453489_482943509804249600_video_VOD.m3u8",
+    "notes": "#"
+  }
+
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+
+</body>
+</html>

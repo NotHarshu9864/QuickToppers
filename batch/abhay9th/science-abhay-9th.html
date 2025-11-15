@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Science: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+ <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="https://nexttoppersharsh.netlify.app/abhay9th" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Science • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+  { "title": "Matter in our Surroundings", "play": "https://youtu.be/Ck9_9LflhyU", "notes": "#" },
+  { "title": "The fundamental unit of life | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4251458/1733755755_8731784553298248/13027204.m3u8", "notes": "#" },
+  { "title": "The fundamental unit of life | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4251460/1733755761_9636980166374504/13027206.m3u8", "notes": "#" },
+  { "title": "Motion | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4253504/173392219044888296383/173392219044888296383_8296383.m3u8", "notes": "#" },
+  { "title": "Motion | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4254525/173400862388838296383/173400862388838296383_8296383.m3u8", "notes": "#" },
+  { "title": "Is matter around us pure", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4255350/173409514939528296383/173409514939528296383_8296383.m3u8", "notes": "#" },
+  { "title": "Doubt Solving Class", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4255959/173417998996028296383/173417998996028296383_8296383.m3u8", "notes": "#" },
+  { "title": "Force and Laws of Motion | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4262488/173452604118008296383/173452604118008296383_8296383.m3u8", "notes": "#" },
+  { "title": "Force and Laws of Motion | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4263416/173461160526398296383/173461160526398296383_8296383.m3u8", "notes": "#" },
+  { "title": "Tissue | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4264737/173469917741108296383/173469917741108296383_8296383.m3u8", "notes": "#" },
+  { "title": "Tissue | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4265460/173478570995698296383/173478570995698296383_8296383.m3u8", "notes": "#" },
+  { "title": "Work Power and Enerygy | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4267859/173513192018058296383/173513192018058296383_8296383.m3u8", "notes": "#" },
+  { "title": "Work Power and Energy | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4268674/173521751271408296383/173521751271408296383_8296383.m3u8", "notes": "#" },
+  { "title": "Gravitation | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4269506/173530456116488296383/173530456116488296383_8296383.m3u8", "notes": "#" },
+  { "title": "Gravitation | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4270014/173539026966468296383/173539026966468296383_8296383.m3u8", "notes": "#" },
+  { "title": "Atoms and Molecules | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4272032/173573673323138296383/173573673323138296383_8296383.m3u8", "notes": "#" },
+  { "title": "Atoms and Molecules | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4272611/173582243150658296383/173582243150658296383_8296383.m3u8", "notes": "#" },
+  { "title": "Structure of Atom | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4273520/173590921458708296383/173590921458708296383_8296383.m3u8", "notes": "#" },
+  { "title": "Structure of Atom | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4274004/173599632260408296383/173599632260408296383_8296383.m3u8", "notes": "#" },
+  { "title": "Doubt Class", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4277125/173634124082028296383/173634124082028296383_8296383.m3u8", "notes": "#" },
+  { "title": "Important in Food resources | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4277922/173642753233948296383/173642753233948296383_8296383.m3u8", "notes": "#" },
+  { "title": "Important in Food resources | L-2", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4278917/173651403433888296383/173651403433888296383_8296383.m3u8", "notes": "#" },
+  { "title": "Sound | L-1", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4279684/173659961473598296383/173659961473598296383_8296383.m3u8", "notes": "#" },
+  { "title": "Sound | L-2 ", "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4279895/173668790678138296383/173668790678138296383_8296383.m3u8", "notes": "#" }
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+
+</body>
+</html>

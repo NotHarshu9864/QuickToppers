@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Science: QuickToppers</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+ <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            card: '#121317',
+            cardStroke: '#23252b',
+          }
+        }
+      },
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    /* Glowing hover effect for cards */
+    .glow:hover {
+      box-shadow: 0 0 15px #8b5cf6aa;
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+    /* Glowing hover for buttons */
+    .glow-btn {
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 10px #10b981aa, 0 0 20px #10b98155;
+      transform: scale(1.05);
+    }
+    .glow-notes:hover {
+      box-shadow: 0 0 10px #8b5cf6aa, 0 0 20px #8b5cf655;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="h-full bg-black text-white">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 bg-black/70 backdrop-blur border-b border-cardStroke">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="https://nexttoppersharsh.netlify.app/abhay9th" aria-label="Back" class="p-2 rounded-lg border border-cardStroke hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="flex-1">
+        <p class="text-xs text-gray-400">Social Science • 9th</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-3">
+
+    <!-- Search Bar -->
+    <input id="search" type="text" placeholder="Search lectures..." 
+      class="w-full mb-4 px-4 py-2 rounded-lg bg-card border border-cardStroke focus:outline-none focus:border-violet-500 placeholder-gray-400 text-white" />
+
+    <!-- Template for lecture card -->
+    <template id="lecture-card">
+      <div class="group glow relative overflow-hidden rounded-2xl border border-cardStroke bg-card p-4 flex items-center justify-between transition">
+        <div class="absolute left-0 top-0 h-full w-1 rounded-r-xl bg-gradient-to-b from-violet-400 via-fuchsia-500 to-pink-500 opacity-90"></div>
+        <div class="pl-3 flex-1">
+          <h2 class="text-base font-semibold title">Lecture Title</h2>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a class="play glow-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500 text-black text-sm font-semibold hover:bg-emerald-400 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a class="notes glow-notes inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-cardStroke text-sm hover:bg-white/5 transition" href="#" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5V6.75A2.25 2.25 0 016.25 4.5h7.5A2.25 2.25 0 0116 6.75V19.5m-10 0h12M8 8.25h4"/>
+            </svg>
+            Notes
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- List -->
+    <div id="lectures" class="space-y-3"></div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-gray-500 text-center mt-6 hidden">No lectures found 😔</p>
+  </main>
+
+  <script>
+    const lectures = [
+  {
+    "title": "People as Resources",
+    "play": "https://player-harsh.netlify.app/player?link=https://youtu.be/hpV7_IsWEr8",
+    "notes": "#"
+  },
+  {
+    "title": "French Revolution - 1",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4251482/173376351436511097666/173376351436511097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "French Revolution - 2",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4252414/173384829840671097666/173384829840671097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "What is Democracy? Why Democracy?",
+    "play": "https://player-harsh.netlify.app/player?link=https://d3cx6qbbd4cbso.cloudfront.net/file_library/videos/vod_non_drm_ios/4251459/1733755758_3679328669320053/13027205.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Doubt Solving Class",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4253629/173393346897741097666/173393346897741097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Poverty as a Challenge",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4254691/173402084481151097666/173402084481151097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Constitutional Design",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4261094/173436822217651097666/173436822217651097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "India: Size and Location",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4261843/173445361970538296383/173445361970538296383_8296383.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Socialism in Europe & Russian Revolution - 1",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4262615/173453986857751097666/173453986857751097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Socialism in Europe & Russian Revolution - 2",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4263660/173462581827241097666/173462581827241097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Doubt Solving Class",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4266453/173497023381708296383/173497023381708296383_8296383.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Food Security in India",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4267282/173505813029018296383/173505813029018296383_8296383.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Electoral Politics",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4267954/173514479022351097666/173514479022351097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Physical Features of India",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4268796/173523090113311097666/173523090113311097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Nazism & Rise of Hitler - 1",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4270876/173557622347881097666/173557622347881097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Nazism & Rise of Hitler - 2",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4271548/173566175063361097666/173566175063361097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Doubt Solving Class",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4272063/173574817413761097666/173574817413761097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Working in Institution",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4272758/173583702838531097666/173583702838531097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Drainage",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4275215/173618079627381097666/173618079627381097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Democratic Rights",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4276280/173626809319621097666/173626809319621097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Climate",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4277214/173635421356161097666/173635421356161097666_1097666.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Population",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4280767/173678506274337880624/173678506274337880624_7880624.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Doubt Solving Class",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4281315/173687072783977880624/173687072783977880624_7880624.m3u8",
+    "notes": "#"
+  },
+  {
+    "title": "Map Work",
+    "play": "https://player-harsh.netlify.app/player?link=https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4282138/173695806912447880624/173695806912447880624_7880624.m3u8",
+    "notes": "#"
+  }
+    ];
+
+    const mount = document.getElementById('lectures');
+    const tpl = document.getElementById('lecture-card');
+    const empty = document.getElementById('empty');
+
+    function renderLectures(list) {
+      mount.innerHTML = '';
+      if (list.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.forEach(lec => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.title').textContent = lec.title;
+        node.querySelector('.play').href = lec.play;
+        node.querySelector('.notes').href = lec.notes;
+        mount.appendChild(node);
+      });
+    }
+
+    renderLectures(lectures);
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = lectures.filter(l => l.title.toLowerCase().includes(q));
+      renderLectures(filtered);
+    });
+  </script>
+
+
+</body>
+</html>
