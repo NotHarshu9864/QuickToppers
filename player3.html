@@ -160,7 +160,102 @@
             document.getElementById("loadingBar").style.display = "none";
         });
     </script>
+<script>
+    /* ---------------------------
+       Read ?link= from URL
+    ----------------------------- */
+    function getLinkFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("link");
+    }
 
+    /* ---------------------------
+       Load M3U8 into player
+    ----------------------------- */
+    function loadDirectLinkIfAvailable() {
+        const direct = getLinkFromURL();
+
+        if (direct) {
+            document.getElementById("player").src =
+                `https://hlsplayer.net/embed?type=m3u8&src=${encodeURIComponent(direct)}`;
+
+            // Hide playlist because user provided custom link
+            document.getElementById("playlistSection").style.display = "none";
+        }
+    }
+
+    /* ---------------------------
+       1️⃣ Load video list from JSON
+    ----------------------------- */
+    async function loadEpisodes() {
+        const res = await fetch("episodes.json");
+        const data = await res.json();
+
+        const playlist = document.getElementById("playlist");
+
+        data.forEach((ep, index) => {
+            const item = document.createElement("div");
+            item.className =
+                "p-3 bg-gray-800/60 hover:bg-gray-700 cursor-pointer rounded-xl transition border border-gray-700";
+            item.innerText = ep.title;
+
+            item.onclick = () => loadVideo(ep.src, item);
+            playlist.appendChild(item);
+
+            // Auto-load first only if ?link= is NOT provided
+            if (index === 0 && !getLinkFromURL()) loadVideo(ep.src, item);
+        });
+    }
+
+    /* ---------------------------
+       2️⃣ Load video inside iframe
+    ----------------------------- */
+    function loadVideo(src, element) {
+        document.getElementById("player").src =
+            `https://hlsplayer.net/embed?type=m3u8&src=${encodeURIComponent(src)}`;
+
+        document.querySelectorAll("#playlist div").forEach(item =>
+            item.classList.remove("bg-cyan-600")
+        );
+
+        element.classList.add("bg-cyan-600");
+    }
+
+    loadEpisodes();
+    loadDirectLinkIfAvailable();
+
+    /* ---------------------------
+       3️⃣ Hide UI during Fullscreen
+    ----------------------------- */
+    document.addEventListener("fullscreenchange", () => {
+        const isFS = !!document.fullscreenElement;
+
+        const header = document.getElementById("headerUI");
+        const sidebar = document.getElementById("playlistSection");
+        const loading = document.getElementById("loadingBar");
+
+        if (isFS) {
+            header.classList.add("hidden-ui");
+            sidebar.classList.add("hidden-ui");
+            loading.classList.add("hidden-ui");
+
+            if (screen.orientation.lock) {
+                screen.orientation.lock("landscape").catch(() => {});
+            }
+        } else {
+            header.classList.remove("hidden-ui");
+            sidebar.classList.remove("hidden-ui");
+            loading.classList.remove("hidden-ui");
+        }
+    });
+
+    /* ---------------------------
+       4️⃣ Hide loading bar on iframe load
+    ----------------------------- */
+    document.getElementById("player").addEventListener("load", () => {
+        document.getElementById("loadingBar").style.display = "none";
+    });
+</script>
 </body>
 
   </html>
