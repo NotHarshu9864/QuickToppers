@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harsh - Cyber secured</title>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: black;
+    }
+    img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none; /* disable click */
+    }
+
+    /* Prevent selection */
+    * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+</style>
+</head>
+<body>
+
+<!-- FULLSCREEN IMAGE -->
+<img src="file.enc.jpg" alt="Secure Image">
+
+<script>
+    // Disable Right Click
+    document.addEventListener("contextmenu", function(e){
+        e.preventDefault();
+    });
+
+    // Disable F12, Ctrl+S, Ctrl+U, Ctrl+Shift+I, Print Screen
+    document.onkeydown = function(e) {
+        if (
+            e.keyCode === 123 || // F12
+            (e.ctrlKey && e.key === "u") || // Ctrl+U
+            (e.ctrlKey && e.key === "s") || // Ctrl+S
+            (e.ctrlKey && e.shiftKey && e.key === "I") || // Ctrl+Shift+I
+            (e.key === "PrintScreen")
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    };
+
+    // Prevent Print Screen Screenshot (partially effective)
+    setInterval(() => {
+        navigator.clipboard.writeText("Screenshots disabled!");
+    }, 1000);
+
+</script>
+
+</body>
+</html>
