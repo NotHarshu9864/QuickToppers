@@ -56,52 +56,23 @@
   <div id="success">✅ Authentication Successful</div>
 
   <script type="module">
-    import { startCamera } from "./js/camera.js";
-    import { loadModels } from "./js/faceEngine.js";
-    import { register, authenticate } from "./js/auth.js";
+  const video = document.getElementById("video");
+  const status = document.getElementById("status");
 
-    const video = document.getElementById("video");
-    const statusEl = document.getElementById("status");
-    const successEl = document.getElementById("success");
-
-    await loadModels();
-    statusEl.textContent = "Models loaded. Click Start Camera.";
-
-    document.getElementById("startCam").onclick = async () => {
-      try {
-        await startCamera(video);
-        statusEl.textContent = "Camera started";
-      } catch (e) {
-        statusEl.textContent = e.message;
-      }
-    };
-
-    document.getElementById("registerBtn").onclick = async () => {
-      statusEl.textContent = "Registering face...";
-      try {
-        await register(video);
-        statusEl.textContent = "Face registered successfully";
-      } catch (e) {
-        statusEl.textContent = e.message;
-      }
-    };
-
-    document.getElementById("loginBtn").onclick = async () => {
-      statusEl.textContent = "Authenticating...";
-      successEl.style.display = "none";
-
-      try {
-        const ok = await authenticate(video);
-        if (ok) {
-          statusEl.textContent = "";
-          successEl.style.display = "block";
-        } else {
-          statusEl.textContent = "❌ Face not matched";
-        }
-      } catch (e) {
-        statusEl.textContent = e.message;
-      }
-    };
-  </script>
+  document.getElementById("startCam").onclick = async () => {
+    try {
+      status.textContent = "Requesting camera...";
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true
+      });
+      video.srcObject = stream;
+      await video.play();
+      status.textContent = "Camera started ✅";
+    } catch (e) {
+      status.textContent = "ERROR: " + e.name;
+      console.error(e);
+    }
+  };
+</script>
 </body>
 </html>
