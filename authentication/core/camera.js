@@ -1,12 +1,19 @@
 export async function startCamera(videoEl) {
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: "user" }
-  });
-  videoEl.srcObject = stream;
-  await videoEl.play();
-}
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    throw new Error("Camera not supported");
+  }
 
-export function stopCamera(videoEl) {
-  const tracks = videoEl.srcObject?.getTracks();
-  tracks?.forEach(t => t.stop());
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false
+  });
+
+  videoEl.srcObject = stream;
+
+  return new Promise(resolve => {
+    videoEl.onloadedmetadata = () => {
+      videoEl.play();
+      resolve();
+    };
+  });
 }
