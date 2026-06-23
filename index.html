@@ -1,487 +1,370 @@
-<!doctype html>
-<html lang="en">
+  
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Redirecting — QuickToppers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QuickToppers 🚀 | Choose Platform</title>
+    
+    <!-- Browser Tab Logo (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/yF4mhNPB/f493d534-fbf8-4b31-b741-83b343f8a9e1.jpg" type="image/jpeg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #03040a; 
+            color: #d6d3d1; 
+            scroll-behavior: smooth; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .bg-dots { 
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px); 
+            background-size: 30px 30px; 
+        }
 
-  <!-- Styles: dark + cyan theme, advanced UI -->
-  <style>
-    :root{
-      --bg:#071021;
-      --card:#071426;
-      --muted:rgba(255,255,255,0.06);
-      --cyan-100:#7ef3ff;
-      --cyan-200:#00e5ff;
-      --glass: rgba(255,255,255,0.04);
-      --accent: linear-gradient(135deg,var(--cyan-200),#24ffd8 70%);
-      --shadow: 0 10px 30px rgba(2,10,20,0.6);
-      --radius:18px;
-      --speed:800ms;
-      font-synthesis: none;
-    }
+        .glass-panel { 
+            background: rgba(20, 20, 25, 0.6); 
+            backdrop-filter: blur(24px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+        }
+        
+        .btn-click-effect:active { transform: scale(0.92); }
+        
+        @keyframes fadeInUpItem { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
-    /* Reset & layout */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,230,255,0.03), transparent 10%),
-                  radial-gradient(800px 400px at 90% 90%, rgba(6,20,40,0.6), transparent 20%),
-                  var(--bg);
-      color:#d9f7fb;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-    }
+        .animate-item { 
+            animation: fadeInUpItem 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            opacity: 0; 
+        }
+        
+        /* Animated Glowing Gradient Text */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradientShift 4s linear infinite;
+        }
+        
+        .glow-amber { filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4)); }
+        
+        /* Input Glow Effect matching admin dashboard */
+        .input-glow:focus { box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.15); border-color: rgba(251, 191, 36, 0.5); }
 
-    .container{
-      width:980px;
-      max-width:98%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:calc(var(--radius) + 6px);
-      box-shadow: var(--shadow);
-      padding:32px;
-      display:flex;
-      gap:28px;
-      align-items:center;
-      justify-content:space-between;
-      border:1px solid rgba(255,255,255,0.03);
-      position:relative;
-      overflow:hidden;
-      backdrop-filter: blur(8px) saturate(120%);
-    }
+        .platform-card { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        
+        /* PW Hover Effects (Violet Theme) */
+        .pw-card:hover { 
+            transform: translateX(5px); 
+            border-color: rgba(139, 92, 246, 0.5); 
+            box-shadow: 0 10px 25px -10px rgba(139, 92, 246, 0.25); 
+            background: rgba(25, 20, 35, 0.8);
+        }
+        .pw-card:hover .icon-glow { transform: scale(1.05) rotate(-5deg); box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
-    /* Decorative glow */
-    .container::before{
-      content:"";
-      position:absolute;
-      left:-20%;
-      top:-50%;
-      width:600px;height:600px;
-      background: radial-gradient(circle at 30% 30%, rgba(0,229,255,0.08), transparent 20%),
-                  conic-gradient(from 180deg at 50% 50%, rgba(0,230,255,0.02), transparent 60%);
-      transform: rotate(20deg);
-      pointer-events:none;
-      filter: blur(36px) saturate(150%);
-    }
+        /* NextTopper Hover Effects (Amber Theme) */
+        .nexttopper-card:hover { 
+            transform: translateX(5px); 
+            border-color: rgba(251, 191, 36, 0.5); 
+            box-shadow: 0 10px 25px -10px rgba(251, 191, 36, 0.25); 
+            background: rgba(30, 25, 20, 0.8);
+        }
+        .nexttopper-card:hover .icon-glow { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
 
-    .left {
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:flex-start;
-    }
+        /* Science and Fun Hover Effects (Green Theme) */
+        .sf-card:hover { 
+            transform: translateX(5px); 
+            border-color: rgba(16, 185, 129, 0.5); 
+            box-shadow: 0 10px 25px -10px rgba(16, 185, 129, 0.25); 
+            background: rgba(20, 30, 25, 0.8);
+        }
+        .sf-card:hover .icon-glow { transform: scale(1.05) rotate(-5deg); box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
 
-    .brand {
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
+        /* Mission Jeet Hover Effects (Blue Theme) */
+        .missionjeet-card:hover { 
+            transform: translateX(5px); 
+            border-color: rgba(59, 130, 246, 0.5); 
+            box-shadow: 0 10px 25px -10px rgba(59, 130, 246, 0.25); 
+            background: rgba(20, 25, 35, 0.8);
+        }
+        .missionjeet-card:hover .icon-glow { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
 
-    .logo {
-      width:64px;height:64px;
-      border-radius:12px;
-      background: linear-gradient(135deg,#00263b,var(--cyan-200));
-      display:grid;
-      place-items:center;
-      box-shadow: 0 8px 30px rgba(0,230,255,0.06), inset 0 -6px 18px rgba(0,0,0,0.35);
-      border:1px solid rgba(255,255,255,0.04);
-      transform:translateZ(0);
-    }
+        /* Selection Bee Hover Effects (Red Theme) */
+        .selectionbee-card:hover { 
+            transform: translateX(5px); 
+            border-color: rgba(239, 68, 68, 0.5); 
+            box-shadow: 0 10px 25px -10px rgba(239, 68, 68, 0.25); 
+            background: rgba(35, 20, 20, 0.8);
+        }
+        .selectionbee-card:hover .icon-glow { transform: scale(1.05) rotate(-5deg); box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
 
-    .logo svg{filter: drop-shadow(0 6px 18px rgba(0,230,255,0.08))}
-
-    .title {
-      font-weight:700;
-      letter-spacing: -0.02em;
-      font-size:20px;
-      line-height:1;
-    }
-
-    .subtitle {
-      font-size:13px;
-      color:rgba(255,255,255,0.6);
-      margin-top:2px;
-    }
-
-    /* Countdown card */
-    .countdown-card{
-      margin-top:6px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.02));
-      border-radius:14px;
-      padding:18px;
-      min-width:360px;
-      display:flex;
-      gap:16px;
-      align-items:center;
-      box-shadow: 0 10px 26px rgba(2,8,15,0.6);
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    .circle {
-      --size:96px;
-      width:var(--size);
-      height:var(--size);
-      border-radius:50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      display:grid;
-      place-items:center;
-      position:relative;
-      box-shadow: inset 0 -8px 18px rgba(0,0,0,0.6);
-      overflow: visible;
-    }
-
-    /* Animated ring */
-    .ring {
-      position:absolute;
-      inset: -8px;
-      border-radius:50%;
-      background: conic-gradient(var(--cyan-200), #62f1e8, rgba(0,0,0,0));
-      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), black calc(100% - 5px));
-      mask: radial-gradient(farthest-side, transparent calc(100% - 6px), black calc(100% - 5px));
-      transform: rotate(-90deg);
-      animation:spin linear var(--duration, 3s) infinite;
-      filter: blur(8px) saturate(120%);
-      opacity:0.95;
-    }
-
-    @keyframes spin{
-      from{transform: rotate(-90deg)}
-      to{transform: rotate(270deg)}
-    }
-
-    .count {
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:-0.02em;
-      color: #eaffff;
-      text-shadow: 0 8px 30px rgba(0,230,255,0.06);
-    }
-
-    .count-small {
-      font-size:12px;
-      color:rgba(255,255,255,0.55);
-      margin-top:4px;
-    }
-
-    .right-side{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:flex-end;
-    }
-
-    /* Progress bar */
-    .progress-wrap{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:flex-end;
-    }
-
-    .progress-track{
-      width:100%;
-      height:14px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:20px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    .progress-bar{
-      height:100%;
-      width:0%;
-      border-radius:20px;
-      background:var(--accent);
-      box-shadow: 0 6px 22px rgba(2,230,230,0.06);
-      transition: width linear var(--speed);
-    }
-
-    .meta {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      font-size:13px;
-      color:rgba(255,255,255,0.65);
-    }
-
-    /* Animated dots */
-    .dots{
-      display:inline-grid;
-      grid-auto-flow:column;
-      gap:6px;
-      align-items:center;
-    }
-    .dot{
-      width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.08);
-      transform-origin:center;
-      animation:dot 1s infinite;
-    }
-    .dot:nth-child(1){animation-delay:0s}
-    .dot:nth-child(2){animation-delay:0.15s}
-    .dot:nth-child(3){animation-delay:0.3s}
-    @keyframes dot{
-      0%{transform:translateY(0);opacity:0.35}
-      50%{transform:translateY(-6px);opacity:1}
-      100%{transform:translateY(0);opacity:0.35}
-    }
-
-    /* Small help text */
-    .hint{
-      font-size:12px;
-      color:rgba(255,255,255,0.45);
-      margin-top:6px;
-      align-self:flex-start;
-    }
-
-    /* Footer controls */
-    .controls{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    .btn{
-      border:0;
-      background:transparent;
-      color:var(--cyan-100);
-      padding:8px 12px;
-      font-weight:700;
-      border-radius:10px;
-      cursor:pointer;
-      transition: transform 140ms ease, background 140ms ease;
-      outline: none;
-    }
-    .btn:active{ transform: translateY(1px) }
-    .btn.ghost{
-      border:1px solid rgba(255,255,255,0.04);
-      color:rgba(255,255,255,0.85);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-    }
-
-    /* Responsive */
-    @media (max-width:720px){
-      .container{flex-direction:column;align-items:center;padding:20px}
-      .countdown-card{min-width:unset;width:100%;flex-direction:row;align-items:center}
-      .right-side{align-items:center}
-      .left{align-items:center;text-align:center}
-    }
-
-    /* accessibility focus */
-    .btn:focus{box-shadow:0 0 0 4px rgba(0,230,255,0.12);border-radius:8px}
-  </style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
-  <main class="container" role="main" aria-labelledby="pageTitle">
-    <div class="left" aria-hidden="false">
-      <div class="brand" >
-        <div class="logo" aria-hidden="true">
-          <!-- simple icon -->
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9S3 17 3 12z" fill="url(#g)"/>
-            <path d="M7 12l4 4 6-8" stroke="#012b36" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <defs>
-              <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="#00263b"/>
-                <stop offset="1" stop-color="#00e5ff"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div>
-          <div id="pageTitle" class="title">QuickToppers — Redirect</div>
-          <div class="subtitle">You are being sent to the destination securely</div>
-        </div>
-      </div>
+<body class="min-h-[100dvh] selection:bg-amber-400/30 relative flex flex-col justify-between items-center overflow-x-hidden">
+    
+    <!-- Premium Background Effects -->
+    <div class="fixed inset-0 pointer-events-none bg-dots opacity-20 z-[-1]"></div>
+    <div class="fixed top-[-10%] left-[-10%] w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+    <div class="fixed top-[20%] right-[-10%] w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+    <div class="fixed bottom-[-10%] right-[10%] w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
+    <div class="fixed bottom-1/4 left-[-10%] w-[250px] h-[250px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
 
-      <div class="countdown-card" role="region" aria-label="Redirect countdown">
-        <div class="circle" aria-hidden="false">
-          <div class="ring" id="ring" style="--duration:3s"></div>
-          <div style="text-align:center; z-index:2">
-            <div id="count" class="count" aria-live="polite">3</div>
-            <div class="count-small">Redirect</div>
-          </div>
-        </div>
-
-        <div style="flex:1">
-          <div class="progress-wrap" aria-hidden="false">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="font-weight:700">Preparing redirect</div>
-              <div class="meta"><span id="timeLabel">3s</span><span class="dots" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl mx-auto px-4 py-6 sm:py-10 flex flex-col items-center justify-center relative z-10 flex-1">
+        
+        <!-- Header Branding -->
+        <div class="text-center mb-6 sm:mb-8 animate-item w-full flex-shrink-0" style="animation-delay: 0ms;">
+            <div class="w-14 h-14 sm:w-20 sm:h-20 bg-stone-900 border border-stone-800 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-5 shadow-xl p-1 glow-amber relative">
+                <div class="absolute inset-0 bg-amber-400/20 rounded-full animate-ping"></div>
+                <img src="https://i.ibb.co/yF4mhNPB/f493d534-fbf8-4b31-b741-83b343f8a9e1.jpg" alt="StudyBee Logo" class="w-full h-full object-cover rounded-full relative z-10" />
             </div>
-
-            <div class="progress-track" aria-hidden="true">
-              <div id="progress" class="progress-bar" style="--speed:800ms"></div>
+            
+            <div class="inline-flex items-center gap-2 bg-stone-800/50 border border-stone-700 px-3 py-1.5 rounded-full text-stone-300 text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] mb-3 sm:mb-4 shadow-sm">
+                <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Select Ecosystem
             </div>
-
-            <div class="hint">If the redirect doesn't happen automatically, you can click <button id="goBtn" class="btn ghost" title="Go now">Go now</button></div>
-          </div>
+            
+            <h1 class="text-3xl sm:text-5xl font-black text-white mb-2 tracking-tight leading-tight flex items-center justify-center gap-2 flex-wrap">
+                <span>Choose</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 animate-gradient-text inline-block">
+                    Platform
+                </span>
+            </h1>
+            
+            <p class="text-stone-400 font-medium text-xs sm:text-sm max-w-md mx-auto leading-relaxed mt-2 hidden sm:block">
+                Select your preferred learning ecosystem to access premium batches & notes.
+            </p>
         </div>
-      </div>
 
-    </div>
-
-    <div class="right-side" aria-hidden="false">
-      <div style="text-align:right; max-width:300px">
-        <div style="font-size:14px;font-weight:700">Secure redirect</div>
-        <div class="subtitle" style="margin-top:8px">
-          We'll route you through a safe endpoint — checking connection & loading optimizations.
+        <!-- Advanced Search Bar -->
+        <div class="w-full max-w-md mx-auto mb-6 sm:mb-8 animate-item relative z-20" style="animation-delay: 50ms;">
+            <div class="relative group">
+                <div class="absolute inset-0 bg-amber-500/5 rounded-2xl blur-md transition-all group-focus-within:bg-amber-500/10"></div>
+                <div class="relative flex items-center">
+                    <i data-lucide="search" class="absolute left-4 w-5 h-5 text-stone-500 group-focus-within:text-amber-400 transition-colors"></i>
+                    <input 
+                        type="text" 
+                        id="platform-search" 
+                        oninput="filterPlatforms()" 
+                        placeholder="Search for a platform or feature..." 
+                        class="w-full bg-stone-900/80 backdrop-blur-xl border border-stone-800 text-white pl-12 pr-12 py-3.5 sm:py-4 rounded-2xl focus:outline-none input-glow transition-all text-sm shadow-inner placeholder:text-stone-600 font-medium" 
+                    />
+                    <button id="clear-search" onclick="clearSearch()" class="absolute right-4 w-5 h-5 text-stone-500 hover:text-stone-300 hidden items-center justify-center transition-colors">
+                        <i data-lucide="x-circle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div style="height:8px"></div>
-        <div style="display:flex;gap:8px;justify-content:flex-end" class="controls">
-          <button id="cancelBtn" class="btn" title="Cancel redirect">Cancel</button>
-          <button id="openBtn" class="btn" title="Open now">Open destination</button>
+
+        <!-- No Results Fallback -->
+        <div id="no-results" class="hidden flex-col items-center justify-center w-full max-w-md mx-auto py-8 sm:py-12 animate-item">
+            <div class="w-16 h-16 bg-stone-900/80 rounded-2xl flex items-center justify-center border border-stone-800 mb-4 shadow-inner">
+                <i data-lucide="search-x" class="w-8 h-8 text-stone-600"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No platforms found</h3>
+            <p class="text-stone-500 text-xs sm:text-sm text-center">We couldn't find any match for "<span id="search-query-text" class="text-amber-400 font-bold"></span>".</p>
+            <button onclick="clearSearch()" class="mt-4 px-4 py-2 bg-stone-800 hover:bg-stone-700 text-white rounded-lg text-xs font-bold uppercase tracking-widest transition-colors border border-stone-700">Clear Search</button>
         </div>
-      </div>
-    </div>
-  </main>
 
-  <!-- Script: countdown, progress, redirect -->
-  <script>
-    (function(){
-      // Config
-      const targetURL = "https://rolexcoderz.in/";
-      const startSeconds = 3; // 3..2..1
-      const fps = 60;
+        <!-- Platform Selection Cards (Vertical List Layout) -->
+        <div id="platforms-container" class="flex flex-col gap-3 sm:gap-4 w-full max-w-md mx-auto flex-1 justify-start z-10 pb-4">
+            
+            <!-- PLATFORM 0: PW (Violet) -->
+            <a href="https://rolexcoderz.com/PW/" class="glass-panel p-3 sm:p-4 rounded-xl sm:rounded-2xl platform-card pw-card group flex flex-row items-center text-left relative border border-stone-800 bg-gradient-to-r from-violet-500/5 to-transparent cursor-pointer animate-item w-full" style="animation-delay: 100ms;">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-violet-400 to-purple-500 opacity-50 group-hover:opacity-100 transition-opacity rounded-l-xl sm:rounded-l-2xl"></div>
+                
+                <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center icon-glow transition-all shadow-[0_0_10px_rgba(139,92,246,0.1)] p-2 relative z-10 ml-2 mr-3 sm:mr-4">
+                    <img src="https://files.catbox.moe/oqcdfv.png" alt="Physics Wallah" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(139,92,246,0.5)]">
+                </div>
+                
+                <div class="flex-1 flex flex-col justify-center py-1">
+                    <h2 class="text-sm sm:text-lg font-black text-white tracking-tight leading-tight mb-0.5">Physics Wallah</h2>
+                    <p class="text-stone-400 text-[10px] sm:text-xs font-medium leading-snug line-clamp-1 pr-2">
+                        Official tb ecosystem & resources
+                    </p>
+                </div>
+                
+                <div class="shrink-0 ml-1">
+                    <span class="flex bg-violet-500/10 border border-violet-500/30 text-violet-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full items-center justify-center transition-colors group-hover:bg-violet-600 group-hover:text-white shadow-sm btn-click-effect">
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </span>
+                </div>
+            </a>
 
-      // DOM
-      const countEl = document.getElementById('count');
-      const progressEl = document.getElementById('progress');
-      const ringEl = document.getElementById('ring');
-      const timeLabel = document.getElementById('timeLabel');
-      const goBtn = document.getElementById('goBtn');
-      const cancelBtn = document.getElementById('cancelBtn');
-      const openBtn = document.getElementById('openBtn');
+            <!-- PLATFORM 1: NEXT TOPPER (Amber) -->
+            <a href="https://rolexcoderz.com/NT/" class="glass-panel p-3 sm:p-4 rounded-xl sm:rounded-2xl platform-card nexttopper-card group flex flex-row items-center text-left relative border border-stone-800 bg-gradient-to-r from-amber-500/5 to-transparent cursor-pointer animate-item w-full" style="animation-delay: 150ms;">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-400 to-orange-500 opacity-50 group-hover:opacity-100 transition-opacity rounded-l-xl sm:rounded-l-2xl"></div>
+                
+                <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center icon-glow transition-all shadow-[0_0_10px_rgba(251,191,36,0.1)] p-2 relative z-10 ml-2 mr-3 sm:mr-4">
+                    <img src="https://i.ibb.co/gbjXqJ1t/IMG-1560.png" alt="NextTopper" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+                </div>
+                
+                <div class="flex-1 flex flex-col justify-center py-1">
+                    <h2 class="text-sm sm:text-lg font-black text-white tracking-tight leading-tight mb-0.5">Next Topper</h2>
+                    <p class="text-stone-400 text-[10px] sm:text-xs font-medium leading-snug line-clamp-1 pr-2">
+                        Premium batches & full syllabus
+                    </p>
+                </div>
+                
+                <div class="shrink-0 ml-1">
+                    <span class="flex bg-amber-500/10 border border-amber-500/30 text-amber-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full items-center justify-center transition-colors group-hover:bg-amber-500 group-hover:text-stone-900 shadow-sm btn-click-effect">
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </span>
+                </div>
+            </a>
 
-      // state
-      let secondsLeft = startSeconds;
-      let running = true;
-      let startTime = performance.now();
-      let duration = startSeconds * 1000;
-      ringEl.style.setProperty('--duration', (duration/1000) + 's');
+            <!-- PLATFORM 2: SCIENCE AND FUN (Green) -->
+            <a href="https://deltastudy.site/scienceandfum" class="glass-panel p-3 sm:p-4 rounded-xl sm:rounded-2xl platform-card sf-card group flex flex-row items-center text-left relative border border-stone-800 bg-gradient-to-r from-emerald-500/5 to-transparent cursor-pointer animate-item w-full" style="animation-delay: 200ms;">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-emerald-400 to-green-500 opacity-50 group-hover:opacity-100 transition-opacity rounded-l-xl sm:rounded-l-2xl"></div>
+                
+                <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center icon-glow transition-all shadow-[0_0_10px_rgba(16,185,129,0.1)] p-2 relative z-10 ml-2 mr-3 sm:mr-4">
+                    <img src="https://files.catbox.moe/c9v3pz.png" alt="Science and Fun" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">
+                </div>
+                
+                <div class="flex-1 flex flex-col justify-center py-1">
+                    <h2 class="text-sm sm:text-lg font-black text-white tracking-tight leading-tight mb-0.5">Science & Fun</h2>
+                    <p class="text-stone-400 text-[10px] sm:text-xs font-medium leading-snug line-clamp-1 pr-2">
+                        Interactive learning & practicals
+                    </p>
+                </div>
+                
+                <div class="shrink-0 ml-1">
+                    <span class="flex bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full items-center justify-center transition-colors group-hover:bg-emerald-600 group-hover:text-white shadow-sm btn-click-effect">
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </span>
+                </div>
+            </a>
 
-      // update visual every frame for smooth progress
-      function tick(now){
-        if(!running) return;
-        const elapsed = Math.min(now - startTime, duration);
-        const pct = elapsed / duration;
-        // progress width
-        progressEl.style.width = (pct * 100) + '%';
-        // time left (rounded to nearest second for label)
-        const msLeft = Math.max(duration - elapsed, 0);
-        const secLeft = Math.ceil(msLeft / 1000);
-        timeLabel.textContent = secLeft + 's';
+            <!-- PLATFORM 3: MISSION JEET (Blue) -->
+            <a href="deltastudy.site/MissionJeet" class="glass-panel p-3 sm:p-4 rounded-xl sm:rounded-2xl platform-card missionjeet-card group flex flex-row items-center text-left relative border border-stone-800 bg-gradient-to-r from-blue-500/5 to-transparent cursor-pointer animate-item w-full" style="animation-delay: 250ms;">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500 opacity-50 group-hover:opacity-100 transition-opacity rounded-l-xl sm:rounded-l-2xl"></div>
+                
+                <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center icon-glow transition-all shadow-[0_0_10px_rgba(59,130,246,0.1)] p-2 relative z-10 ml-2 mr-3 sm:mr-4">
+                    <img src="https://i.ibb.co/rG83qX51/IMG-1558.png" alt="Mission Jeet" class="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
+                </div>
+                
+                <div class="flex-1 flex flex-col justify-center py-1">
+                    <h2 class="text-sm sm:text-lg font-black text-white tracking-tight leading-tight mb-0.5">Mission Jeet</h2>
+                    <p class="text-stone-400 text-[10px] sm:text-xs font-medium leading-snug line-clamp-1 pr-2">
+                        Exclusive high-speed ecosystem
+                    </p>
+                </div>
+                
+                <div class="shrink-0 ml-1">
+                    <span class="flex bg-blue-500/10 border border-blue-500/30 text-blue-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full items-center justify-center transition-colors group-hover:bg-blue-600 group-hover:text-white shadow-sm btn-click-effect">
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </span>
+                </div>
+            </a>
 
-        // circle ring animation uses CSS rotation but we also update the numeric display when a new second boundary passes
-        const newSecondsLeft = Math.ceil(msLeft / 1000);
-        if(newSecondsLeft !== secondsLeft){
-          secondsLeft = newSecondsLeft;
-          // animate the number
-          animateCount(secondsLeft);
+            <!-- PLATFORM 4: SELECTION BEE (Red) -->
+            <a href="https://deltastudy.site/sway" class="glass-panel p-3 sm:p-4 rounded-xl sm:rounded-2xl platform-card selectionbee-card group flex flex-row items-center text-left relative border border-stone-800 bg-gradient-to-r from-red-500/5 to-transparent cursor-pointer animate-item w-full" style="animation-delay: 300ms;">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-400 to-red-600 opacity-50 group-hover:opacity-100 transition-opacity rounded-l-xl sm:rounded-l-2xl"></div>
+                
+                <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center icon-glow transition-all shadow-[0_0_10px_rgba(239,68,68,0.1)] p-1.5 relative z-10 ml-2 mr-3 sm:mr-4">
+                    <img src="https://i.ibb.co/VcdG3Tpp/614-F1636-EB41-457-B-A5-C3-95-AF1444-CAC3.jpg" alt="Selection Bee" class="w-full h-full object-cover rounded-md drop-shadow-[0_0_8px_rgba(239,68,68,0.3)]">
+                </div>
+                
+                <div class="flex-1 flex flex-col justify-center py-1">
+                    <h2 class="text-sm sm:text-lg font-black text-white tracking-tight leading-tight mb-0.5">Selection Bee</h2>
+                    <p class="text-stone-400 text-[10px] sm:text-xs font-medium leading-snug line-clamp-1 pr-2">
+                        Cinematic interface for deep study
+                    </p>
+                </div>
+                
+                <div class="shrink-0 ml-1">
+                    <span class="flex bg-red-500/10 border border-red-500/30 text-red-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full items-center justify-center transition-colors group-hover:bg-red-600 group-hover:text-white shadow-sm btn-click-effect">
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </span>
+                </div>
+            </a>
+
+        </div>    
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-4 text-center relative z-10 flex-shrink-0 animate-item" style="animation-delay: 400ms;">
+        <div class="flex items-center justify-center gap-1.5 mb-1.5 opacity-50">
+            <i data-lucide="zap" class="w-3 h-3 text-stone-400"></i>
+        </div>
+        <p class="text-stone-500 text-[8px] sm:text-[10px] uppercase font-bold tracking-[0.2em]">Designed & Developed by Krishna <\></p>
+        <p class="text-stone-600 text-[7px] sm:text-[9px] uppercase font-bold tracking-[0.2em] mt-1.5">© 2026 QuickToppers🐝 Ecosystem</p>
+    </footer>
+
+    <!-- Search Logic and Icons Initialization -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Search Filter Logic
+        function filterPlatforms() {
+            const searchInput = document.getElementById('platform-search');
+            const clearBtn = document.getElementById('clear-search');
+            const noResults = document.getElementById('no-results');
+            const platformsContainer = document.getElementById('platforms-container');
+            const searchQueryText = document.getElementById('search-query-text');
+            
+            const filterValue = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.platform-card');
+            
+            let visibleCount = 0;
+
+            // Toggle Clear Button Visibility
+            if (filterValue.length > 0) {
+                clearBtn.classList.remove('hidden');
+                clearBtn.classList.add('flex');
+            } else {
+                clearBtn.classList.add('hidden');
+                clearBtn.classList.remove('flex');
+            }
+
+            // Loop through all cards and filter
+            cards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                // Check if title or description contains the search term
+                if (title.includes(filterValue) || description.includes(filterValue)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Toggle No Results View
+            if (visibleCount === 0) {
+                platformsContainer.style.display = 'none';
+                noResults.classList.remove('hidden');
+                noResults.classList.add('flex');
+                searchQueryText.textContent = searchInput.value;
+            } else {
+                platformsContainer.style.display = 'flex';
+                noResults.classList.add('hidden');
+                noResults.classList.remove('flex');
+            }
         }
 
-        if(elapsed >= duration){
-          // finish
-          finishRedirect();
-          return;
+        // Clear Search Action
+        function clearSearch() {
+            const searchInput = document.getElementById('platform-search');
+            searchInput.value = '';
+            filterPlatforms();
+            searchInput.focus(); // keep focus on input after clearing
         }
-        requestAnimationFrame(tick);
-      }
-
-      // small popping animation for number when it changes
-      function animateCount(value){
-        // clamp to minimum 0
-        const display = Math.max(0, value);
-        countEl.textContent = display;
-        countEl.style.transition = 'transform 160ms cubic-bezier(.2,.9,.2,1), opacity 140ms';
-        countEl.style.transform = 'translateY(-8px) scale(1.05)';
-        countEl.style.opacity = '0.98';
-        setTimeout(()=> {
-          countEl.style.transform = 'translateY(0) scale(1)';
-          countEl.style.opacity = '1';
-        }, 120);
-      }
-
-      // start animation loop
-      requestAnimationFrame(tick);
-
-      // finish: navigate (uses location.replace so back button won't loop)
-      function finishRedirect(){
-        running = false;
-        // final UI state
-        progressEl.style.width = '100%';
-        countEl.textContent = '0';
-        timeLabel.textContent = '0s';
-        // small flash
-        document.body.animate([
-          {filter: 'brightness(1)'},
-          {filter: 'brightness(1.06)'},
-          {filter: 'brightness(1)'}
-        ], {duration: 420, easing: 'ease-out'});
-
-        // Redirect
-        try {
-          // use replace to avoid leaving a redirect page in history
-          window.location.replace(targetURL);
-        } catch (err) {
-          // As fallback open in same tab
-          window.location.href = targetURL;
-        }
-      }
-
-      // buttons
-      goBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        finishRedirect();
-      });
-
-      openBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        window.open(targetURL, '_blank', 'noopener');
-      });
-
-      cancelBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        // stop redirect
-        running = false;
-        // update UI to show cancelled
-        countEl.textContent = '-';
-        timeLabel.textContent = 'stopped';
-        progressEl.style.transition = 'width 240ms ease';
-        progressEl.style.width = '0%';
-        // show muted message
-        const hint = document.querySelector('.hint');
-        hint.textContent = 'Redirect cancelled. You can open destination manually.';
-      });
-
-      // Accessibility: allow space or enter to "Go now"
-      goBtn.addEventListener('keydown', (ev) => {
-        if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); goBtn.click(); }
-      });
-
-      // Prevent accidental selection double-click
-      document.addEventListener('dragstart', e => e.preventDefault());
-
-      // In case page is hidden and animation stops, handle visibilitychange to resume/end
-      document.addEventListener('visibilitychange', () => {
-        if(document.visibilityState === 'visible' && running){
-          // adjust startTime so timing is continuous
-          // compute elapsed so far from progress width
-          const computedWidth = parseFloat(getComputedStyle(progressEl).width) || 0;
-          const trackWidth = progressEl.parentElement.clientWidth || 1;
-          const pct = Math.min(1, computedWidth / trackWidth);
-          startTime = performance.now() - pct * duration;
-          requestAnimationFrame(tick);
-        }
-      });
-    })();
-  </script>
+    </script>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "814af7259c32493c9fdd8ea4f2df5090"}'></script><!-- Cloudflare Pages Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"31fad4a5786a4d988f76b55a0b508ae6","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
-</html>
+  </html>
