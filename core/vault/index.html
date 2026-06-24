@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Media Vault</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +12,11 @@ body{
     background:#03040a;
     color:white;
     font-family:Inter,sans-serif;
+}
+
+.bg-dots{
+    background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
+    background-size:30px 30px;
 }
 
 .glass{
@@ -26,8 +31,9 @@ body{
 }
 
 .card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-6px);
     border-color:rgba(251,191,36,.4);
+    box-shadow:0 15px 40px rgba(251,191,36,.15);
 }
 
 #loader{
@@ -57,7 +63,7 @@ body{
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.8);
+    background:rgba(0,0,0,.85);
     display:none;
     justify-content:center;
     align-items:center;
@@ -66,16 +72,16 @@ body{
 </style>
 </head>
 
-<body>
+<body class="bg-dots">
 
-<!-- Background -->
-<div class="fixed top-0 left-0 w-72 h-72 bg-amber-500/10 rounded-full blur-[120px]"></div>
-<div class="fixed bottom-0 right-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[120px]"></div>
+<!-- Glow Effects -->
+<div class="fixed top-0 left-0 w-80 h-80 bg-amber-500/10 rounded-full blur-[120px]"></div>
+<div class="fixed bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[120px]"></div>
 
 <!-- Loader -->
 <div id="loader">
     <div class="spinner"></div>
-    <p class="mt-4 text-stone-300">Opening Media...</p>
+    <p class="mt-4 text-gray-300">Opening Media...</p>
 </div>
 
 <!-- Passcode Popup -->
@@ -122,7 +128,7 @@ body{
     </h1>
 
     <p class="text-center text-gray-400 mb-8">
-        Secure Media Collection
+        Private Gallery Collection
     </p>
 
     <!-- Search -->
@@ -137,41 +143,82 @@ body{
     </div>
 
     <!-- Gallery -->
-    <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
+        <!-- Card 1 -->
         <div class="card glass rounded-2xl overflow-hidden"
-             onclick="showCodePopup('https://example.com/image1.jpg')">
+             onclick="showCodePopup('https://quicktoppers.vercel.app/Screenshot_20260524-211216~2.png')">
 
-            <img src="https://picsum.photos/600/350?1"
-                 class="w-full h-48 object-cover">
+            <img src="https://quicktoppers.vercel.app/Screenshot_20260524-211216~2.png"
+                 class="w-full h-52 object-cover">
 
             <div class="p-4">
-                <h3 class="font-bold">Photo 1</h3>
-                <p class="text-sm text-gray-400">Thumbnail Preview</p>
+                <h3 class="font-bold">Chhoti Bacchi</h3>
+                <p class="text-sm text-gray-400">Image Preview</p>
             </div>
         </div>
 
+        <!-- Card 2 -->
         <div class="card glass rounded-2xl overflow-hidden"
-             onclick="showCodePopup('https://example.com/image2.jpg')">
+             onclick="showCodePopup('https://quicktoppers.vercel.app/file.enc.jpg')">
 
-            <img src="https://picsum.photos/600/350?2"
-                 class="w-full h-48 object-cover">
+            <img src="https://quicktoppers.vercel.app/file.enc.jpg"
+                 class="w-full h-52 object-cover">
 
             <div class="p-4">
-                <h3 class="font-bold">Photo 2</h3>
-                <p class="text-sm text-gray-400">Thumbnail Preview</p>
+                <h3 class="font-bold">Cutie Pie</h3>
+                <p class="text-sm text-gray-400">Protected Image</p>
             </div>
         </div>
 
+        <!-- Card 3 -->
         <div class="card glass rounded-2xl overflow-hidden"
-             onclick="showCodePopup('https://example.com/image3.jpg')">
+             onclick="showCodePopup('https://quicktoppers.vercel.app/Screenshot_20260614-100636~2.jpg')">
 
-            <img src="https://picsum.photos/600/350?3"
-                 class="w-full h-48 object-cover">
+            <img src="https://quicktoppers.vercel.app/Screenshot_20260614-100636~2.jpg"
+                 class="w-full h-52 object-cover">
 
             <div class="p-4">
-                <h3 class="font-bold">Photo 3</h3>
-                <p class="text-sm text-gray-400">Thumbnail Preview</p>
+                <h3 class="font-bold">Birthday Wish</h3>
+                <p class="text-sm text-gray-400">Photo</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card glass rounded-2xl overflow-hidden"
+             onclick="showCodePopup('https://drive.google.com/file/d/1OEW3tuIxoAg6SV_mkOfq2301RB0z1ceu/view?usp=drivesdk')">
+
+            <img src="https://picsum.photos/600/400?random=4"
+                 class="w-full h-52 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold">BehenChara</h3>
+                <p class="text-sm text-gray-400">Drive Media</p>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card glass rounded-2xl overflow-hidden"
+             onclick="showCodePopup('https://drive.google.com/file/d/1uO2Ck-wS53kve7K4on293iQtXOiiw1Ce/view?usp=drivesdk')">
+
+            <img src="https://picsum.photos/600/400?random=5"
+                 class="w-full h-52 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold">Thumbs Up</h3>
+                <p class="text-sm text-gray-400">Drive Media</p>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card glass rounded-2xl overflow-hidden">
+
+            <img src="https://picsum.photos/600/400?random=6"
+                 class="w-full h-52 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold">Coming Soon</h3>
+                <p class="text-sm text-gray-400">Add your 6th link</p>
             </div>
         </div>
 
@@ -184,7 +231,6 @@ body{
 const ACCESS_CODE = "090807";
 let targetUrl = "";
 
-// popup
 function showCodePopup(url){
     targetUrl = url;
     document.getElementById("codeModal").style.display = "flex";
@@ -215,7 +261,6 @@ function verifyCode(){
     }
 }
 
-// search
 function searchCards(){
 
     let input =
@@ -242,4 +287,4 @@ function searchCards(){
 </script>
 
 </body>
-        </html>
+</html>
