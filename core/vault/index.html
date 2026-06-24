@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Vault</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    background:#03040a;
+    color:white;
+    font-family:Inter,sans-serif;
+}
+
+.bg-dots{
+    background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
+    background-size:30px 30px;
+}
+
+.glass{
+    background:rgba(20,20,25,.65);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(251,191,36,.4);
+    box-shadow:0 15px 30px rgba(251,191,36,.15);
+}
+
+#loader{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#03040a;
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.spinner{
+    width:60px;
+    height:60px;
+    border:4px solid #333;
+    border-top:4px solid #fbbf24;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+</style>
+</head>
+
+<body class="bg-dots min-h-screen">
+
+<div class="fixed top-0 left-0 w-72 h-72 bg-amber-500/10 rounded-full blur-[120px]"></div>
+<div class="fixed bottom-0 right-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[120px]"></div>
+
+<div id="loader">
+    <div class="spinner"></div>
+    <p class="mt-4 text-stone-300">Opening Media...</p>
+</div>
+
+<div class="max-w-5xl mx-auto px-4 py-10">
+
+    <div class="text-center mb-8">
+        <h1 class="text-5xl font-black">
+            Media <span class="text-amber-400">Vault</span>
+        </h1>
+
+        <p class="text-stone-400 mt-3">
+            Browse your media collection
+        </p>
+    </div>
+
+    <div class="max-w-md mx-auto mb-8">
+        <input
+            id="search"
+            type="text"
+            placeholder="Search media..."
+            class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 outline-none"
+            onkeyup="searchCards()"
+        >
+    </div>
+
+    <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="card glass rounded-2xl overflow-hidden cursor-pointer"
+             onclick="openMedia('https://example.com/media1.jpg')">
+
+            <img src="https://picsum.photos/500/300?1"
+                 class="w-full h-48 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold text-lg">Photo 1</h3>
+                <p class="text-stone-400 text-sm">Image Preview</p>
+            </div>
+        </div>
+
+        <div class="card glass rounded-2xl overflow-hidden cursor-pointer"
+             onclick="openMedia('https://example.com/media2.jpg')">
+
+            <img src="https://picsum.photos/500/300?2"
+                 class="w-full h-48 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold text-lg">Photo 2</h3>
+                <p class="text-stone-400 text-sm">Image Preview</p>
+            </div>
+        </div>
+
+        <div class="card glass rounded-2xl overflow-hidden cursor-pointer"
+             onclick="openMedia('https://example.com/media3.jpg')">
+
+            <img src="https://picsum.photos/500/300?3"
+                 class="w-full h-48 object-cover">
+
+            <div class="p-4">
+                <h3 class="font-bold text-lg">Photo 3</h3>
+                <p class="text-stone-400 text-sm">Image Preview</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function openMedia(url){
+    document.getElementById("loader").style.display="flex";
+
+    setTimeout(()=>{
+        window.location.href=url;
+    },1200);
+}
+
+function searchCards(){
+    let input=document.getElementById("search").value.toLowerCase();
+    let cards=document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+        let text=card.innerText.toLowerCase();
+
+        if(text.includes(input)){
+            card.style.display="";
+        }else{
+            card.style.display="none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
