@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HARSH // CORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="lock" class="lock-screen">
+    <div class="lock-box">
+      <div class="tiny">PRIVATE COMMAND CENTER</div>
+      <h1>HARSH<span>//</span>CORE</h1>
+      <div id="scan">SYSTEM LOCKED</div>
+      <div class="finger">◉</div>
+      <p>Biometric / Passcode authentication</p>
+      <input id="pin" type="password" inputmode="numeric" maxlength="6" placeholder="ENTER PIN">
+      <button id="unlock">AUTHENTICATE</button>
+      <small id="authMsg"></small>
+    </div>
+  </div>
+
+  <main id="app" class="hidden">
+    <header>
+      <div>
+        <div class="tiny">PERSONAL COMMAND CENTER</div>
+        <h1>HARSH<span>//</span>CORE</h1>
+      </div>
+      <div class="status"><i></i> SECURE SESSION</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="tiny">SYSTEM STATUS</div>
+        <h2>ALL SYSTEMS <span>OPERATIONAL</span></h2>
+        <p>Unified monitoring dashboard • Local prototype</p>
+      </div>
+      <button id="sync">↻ SYNC NOW</button>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="label">INSTAGRAM</div>
+        <div class="big" id="followers">1,245</div>
+        <div class="muted">FOLLOWERS</div>
+        <div class="split"><b id="following">382</b><span>FOLLOWING</span></div>
+        <div class="bar"><span style="width:78%"></span></div>
+        <div class="muted">API STATUS <strong>READY</strong></div>
+      </article>
+
+      <article class="card">
+        <div class="label">PROJECTS</div>
+        <div class="big">03</div>
+        <div class="muted">ACTIVE PROJECTS</div>
+        <ul class="project-list">
+          <li><span class="dot"></span> QuickToppers <b>ONLINE</b></li>
+          <li><span class="dot"></span> Krishna <b>ONLINE</b></li>
+          <li><span class="dot"></span> API Server <b>ONLINE</b></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="label">DATABASE</div>
+        <div class="big">●</div>
+        <div class="muted">FIREBASE CONNECTED</div>
+        <div class="log">REALTIME LISTENER ACTIVE<br>LAST EVENT: <span id="time">--:--:--</span></div>
+      </article>
+    </section>
+
+    <section class="terminal card">
+      <div class="label">LIVE SYSTEM LOG</div>
+      <div id="logs"></div>
+    </section>
+
+    <footer>
+      <span>HARSH // CORE v0.1</span>
+      <span>LOCAL PROTOTYPE • API DATA NOT YET CONNECTED</span>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
